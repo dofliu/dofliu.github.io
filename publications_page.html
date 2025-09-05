@@ -1,0 +1,769 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>研究成果 - DOF Lab</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: #f8f9fa;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        header {
+            background: white;
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+        }
+
+        nav {
+            padding: 1rem 0;
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #667eea;
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover, .nav-links a.active {
+            color: #667eea;
+        }
+
+        .page-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 8rem 0 4rem;
+            margin-top: 80px;
+            text-align: center;
+        }
+
+        .page-header h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .page-header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .main-content {
+            padding: 4rem 0;
+        }
+
+        .section {
+            margin-bottom: 4rem;
+        }
+
+        .section-title {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 3px solid #667eea;
+        }
+
+        .section-title i {
+            font-size: 2rem;
+            color: #667eea;
+        }
+
+        .section-title h2 {
+            font-size: 2rem;
+            color: #333;
+        }
+
+        .publication-item {
+            background: white;
+            padding: 2rem;
+            margin-bottom: 1.5rem;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border-left: 5px solid #667eea;
+        }
+
+        .publication-item:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        .pub-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 1rem;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .pub-date {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-weight: bold;
+            font-size: 0.9rem;
+        }
+
+        .pub-type {
+            background: #28a745;
+            color: white;
+            padding: 0.3rem 0.8rem;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+
+        .pub-type.conference {
+            background: #17a2b8;
+        }
+
+        .pub-type.competition {
+            background: #ffc107;
+            color: #333;
+        }
+
+        .pub-type.project {
+            background: #6f42c1;
+        }
+
+        .pub-title {
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 0.5rem;
+            line-height: 1.4;
+        }
+
+        .pub-journal {
+            color: #667eea;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .pub-description {
+            color: #666;
+            margin-bottom: 1rem;
+            line-height: 1.6;
+        }
+
+        .pub-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .tag {
+            background: #e9ecef;
+            color: #495057;
+            padding: 0.3rem 0.8rem;
+            border-radius: 15px;
+            font-size: 0.8rem;
+        }
+
+        .video-section {
+            background: white;
+            padding: 3rem;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+            margin-bottom: 3rem;
+        }
+
+        .video-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .video-card {
+            background: #f8f9fa;
+            padding: 2rem;
+            border-radius: 15px;
+            transition: transform 0.3s ease;
+            text-align: center;
+        }
+
+        .video-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .video-card i {
+            font-size: 3rem;
+            color: #dc3545;
+            margin-bottom: 1rem;
+        }
+
+        .video-card h4 {
+            margin-bottom: 1rem;
+            color: #333;
+            font-size: 1.2rem;
+        }
+
+        .video-card p {
+            color: #666;
+            margin-bottom: 1.5rem;
+        }
+
+        .video-card a {
+            display: inline-flex;
+            align-items: center;
+            background: linear-gradient(135deg, #dc3545, #c82333);
+            color: white;
+            text-decoration: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 25px;
+            transition: transform 0.3s ease;
+        }
+
+        .video-card a:hover {
+            transform: scale(1.05);
+        }
+
+        .video-card a i {
+            margin-right: 0.5rem;
+            font-size: 1rem;
+        }
+
+        .filter-tabs {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 3rem;
+            flex-wrap: wrap;
+        }
+
+        .filter-tab {
+            padding: 0.8rem 1.5rem;
+            background: white;
+            color: #666;
+            border: 2px solid #e9ecef;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+
+        .filter-tab:hover, .filter-tab.active {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            border-color: transparent;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .stat-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-3px);
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #667eea;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            color: #666;
+            font-weight: 600;
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .page-header h1 {
+                font-size: 2rem;
+            }
+
+            .pub-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .filter-tabs {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .video-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="container">
+                <div class="nav-container">
+                    <a href="index.html" class="logo">DOF Lab</a>
+                    <ul class="nav-links">
+                        <li><a href="index.html">首頁</a></li>
+                        <li><a href="research.html">研究領域</a></li>
+                        <li><a href="publications.html" class="active">研究成果</a></li>
+                        <li><a href="projects.html">專案開發</a></li>
+                        <li><a href="about.html">關於我</a></li>
+                        <li><a href="contact.html">聯絡方式</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <section class="page-header">
+        <div class="container">
+            <h1>研究成果</h1>
+            <p>展示近年來在生成式AI、風電技術與智慧自動化領域的研究成就與學術貢獻</p>
+        </div>
+    </section>
+
+    <main class="main-content">
+        <div class="container">
+            
+            <!-- 成果統計 -->
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-number">8+</div>
+                    <div class="stat-label">SCIE期刊論文</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">5+</div>
+                    <div class="stat-label">競賽獲獎</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">3+</div>
+                    <div class="stat-label">產學合作案</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">2</div>
+                    <div class="stat-label">研究影片</div>
+                </div>
+            </div>
+
+            <!-- 研究影片 -->
+            <div class="video-section">
+                <div class="section-title">
+                    <i class="fab fa-youtube"></i>
+                    <h2>研究影片介紹</h2>
+                </div>
+                <div class="video-grid">
+                    <div class="video-card">
+                        <i class="fab fa-youtube"></i>
+                        <h4>AI幫你產生程式碼</h4>
+                        <p>展示AI自動生成程式碼並上傳到控制板的完整流程，展現生成式AI在自動化領域的實際應用</p>
+                        <a href="https://www.youtube.com/watch?v=azV1FP1blbE" target="_blank">
+                            <i class="fas fa-play"></i>
+                            觀看影片
+                        </a>
+                    </div>
+                    <div class="video-card">
+                        <i class="fab fa-youtube"></i>
+                        <h4>MCP - AI大語言模型自動化整合</h4>
+                        <p>整合LINE、行事曆、設備通訊即時資料的智慧系統，展示多平台AI整合的創新應用</p>
+                        <a href="https://www.youtube.com/watch?v=YgxlgmIXzqc" target="_blank">
+                            <i class="fas fa-play"></i>
+                            觀看影片
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 篩選標籤 -->
+            <div class="filter-tabs">
+                <a href="#" class="filter-tab active" data-filter="all">全部成果</a>
+                <a href="#" class="filter-tab" data-filter="journal">期刊論文</a>
+                <a href="#" class="filter-tab" data-filter="conference">研討會</a>
+                <a href="#" class="filter-tab" data-filter="competition">競賽獲獎</a>
+                <a href="#" class="filter-tab" data-filter="project">產學合作</a>
+            </div>
+
+            <!-- 期刊發表 -->
+            <div class="section" data-category="journal">
+                <div class="section-title">
+                    <i class="fas fa-file-alt"></i>
+                    <h2>期刊發表 (近兩年)</h2>
+                </div>
+
+                <div class="publication-item" data-filter="journal">
+                    <div class="pub-header">
+                        <div class="pub-date">[114.05] SCIE</div>
+                        <div class="pub-type">期刊論文</div>
+                    </div>
+                    <div class="pub-title">Application of the Power Law Process in the Reliability Analysis of a Wind Farm: A Case Study Approach</div>
+                    <div class="pub-journal">Journal of the Chinese Society of Mechanical Engineers (JCSME)</div>
+                    <div class="pub-description">
+                        本研究應用冪次法則過程(Power Law Process)進行風電場可靠性分析，透過實際案例研究方法，
+                        建立風電機組故障模式分析模型，為風電場的維護策略提供重要的理論基礎與實務指導。
+                    </div>
+                    <div class="pub-tags">
+                        <span class="tag">風電可靠性</span>
+                        <span class="tag">Power Law Process</span>
+                        <span class="tag">案例研究</span>
+                        <span class="tag">統計分析</span>
+                    </div>
+                </div>
+
+                <div class="publication-item" data-filter="journal">
+                    <div class="pub-header">
+                        <div class="pub-date">[114.05] SCIE</div>
+                        <div class="pub-type">期刊論文</div>
+                    </div>
+                    <div class="pub-title">Design Improvement and Strength Analysis of a Pin Lock Structure for Wind Turbine Hub</div>
+                    <div class="pub-journal">Journal of the Chinese Society of Mechanical Engineers (JCSME)</div>
+                    <div class="pub-description">
+                        針對風力發電機輪轂的插銷鎖定結構進行設計改良與強度分析，透過有限元素分析優化結構設計，
+                        提升風電機組的安全性與可靠性，為風電設備的結構設計提供重要參考。
+                    </div>
+                    <div class="pub-tags">
+                        <span class="tag">結構設計</span>
+                        <span class="tag">強度分析</span>
+                        <span class="tag">風電機組</span>
+                        <span class="tag">有限元素分析</span>
+                    </div>
+                </div>
+
+                <div class="publication-item" data-filter="journal">
+                    <div class="pub-header">
+                        <div class="pub-date">[113.11] SCIE</div>
+                        <div class="pub-type">期刊論文</div>
+                    </div>
+                    <div class="pub-title">Design and Implementation of an Augmented Reality-based Interactive and Real-time Wind Turbine Maintenance Auxiliary Platform System</div>
+                    <div class="pub-journal">Sensors and Materials</div>
+                    <div class="pub-description">
+                        設計並實作基於擴增實境的互動式即時風電維護輔助平台系統，整合AR技術與IoT感測器，
+                        提供直觀的維護指導介面，大幅提升風電設備維護的效率與準確性。
+                    </div>
+                    <div class="pub-tags">
+                        <span class="tag">擴增實境</span>
+                        <span class="tag">風電維護</span>
+                        <span class="tag">即時系統</span>
+                        <span class="tag">IoT整合</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 競賽活動 -->
+            <div class="section" data-category="competition">
+                <div class="section-title">
+                    <i class="fas fa-trophy"></i>
+                    <h2>競賽活動消息 (近三年)</h2>
+                </div>
+
+                <div class="publication-item" data-filter="competition">
+                    <div class="pub-header">
+                        <div class="pub-date">[111.11] 國際研討會</div>
+                        <div class="pub-type competition">最佳海報獎</div>
+                    </div>
+                    <div class="pub-title">ISNST 2022 最佳海報獎</div>
+                    <div class="pub-journal">International Symposium on Nano Science and Technology, 臺南</div>
+                    <div class="pub-description">
+                        學生蔡貞儀在國際奈米科學技術研討會中榮獲最佳海報獎，展現在奈米技術與風電應用結合方面的創新研究成果。
+                    </div>
+                    <div class="pub-tags">
+                        <span class="tag">國際研討會</span>
+                        <span class="tag">最佳海報獎</span>
+                        <span class="tag">奈米技術</span>
+                        <span class="tag">學生指導</span>
+                    </div>
+                </div>
+
+                <div class="publication-item" data-filter="competition">
+                    <div class="pub-header">
+                        <div class="pub-date">[111.11] 全國競賽</div>
+                        <div class="pub-type competition">佳作</div>
+                    </div>
+                    <div class="pub-title">2022全國大專院校產學創新實作競賽</div>
+                    <div class="pub-journal">彰化大學主辦</div>
+                    <div class="pub-description">
+                        指導學生團隊(佘文耀/邱宸焄/何丞傑/陳沛薰)參加全國大專院校產學創新實作競賽榮獲佳作，
+                        展現在產學合作與創新實作方面的優秀成果。
+                    </div>
+                    <div class="pub-tags">
+                        <span class="tag">產學創新</span>
+                        <span class="tag">實作競賽</span>
+                        <span class="tag">團隊指導</span>
+                        <span class="tag">佳作</span>
+                    </div>
+                </div>
+
+                <div class="publication-item" data-filter="conference">
+                    <div class="pub-header">
+                        <div class="pub-date">[111.04] 研討會</div>
+                        <div class="pub-type conference">最佳論文獎</div>
+                    </div>
+                    <div class="pub-title">機電工程國際研討會最佳論文獎</div>
+                    <div class="pub-journal">彰化師範大學</div>
+                    <div class="pub-description">
+                        與學生蔡貞儀、Nelson共同發表之論文榮獲機電工程國際研討會最佳論文獎，
+                        展現在機電整合與風電技術研究方面的卓越成果。
+                    </div>
+                    <div class="pub-tags">
+                        <span class="tag">最佳論文獎</span>
+                        <span class="tag">機電工程</span>
+                        <span class="tag">國際研討會</span>
+                        <span class="tag">學術合作</span>
+                    </div>
+                </div>
+
+                <div class="publication-item" data-filter="competition">
+                    <div class="pub-header">
+                        <div class="pub-date">[110.05] 創意競賽</div>
+                        <div class="pub-type competition">佳作 (1萬元)</div>
+                    </div>
+                    <div class="pub-title">福興熱能創意競賽 - 智慧人體感應電風扇</div>
+                    <div class="pub-journal">中原大學機械系主辦</div>
+                    <div class="pub-description">
+                        指導學生團隊(李佳洲、陳信銓、朱祐賢)開發智慧人體感應電風扇，
+                        結合感測技術與智慧控制，榮獲福興熱能創意競賽佳作及獎金1萬元。
+                    </div>
+                    <div class="pub-tags">
+                        <span class="tag">創意競賽</span>
+                        <span class="tag">智慧感應</span>
+                        <span class="tag">熱能技術</span>
+                        <span class="tag">學生指導</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 產學合作 -->
+            <div class="section" data-category="project">
+                <div class="section-title">
+                    <i class="fas fa-handshake"></i>
+                    <h2>產學合作專案</h2>
+                </div>
+
+                <div class="publication-item" data-filter="project">
+                    <div class="pub-header">
+                        <div class="pub-date">[110.04] 產學計畫</div>
+                        <div class="pub-type project">40萬元</div>
+                    </div>
+                    <div class="pub-title">智能PLC地熱監控系統開發研究計畫</div>
+                    <div class="pub-journal">工研院綠能所委託</div>
+                    <div class="pub-description">
+                        承接工研院綠能所委託之智能PLC地熱監控系統開發研究計畫，開發先進的地熱發電監控系統，
+                        結合PLC控制技術與智慧監控演算法，提升再生能源系統的運行效率與可靠性。
+                        參與學生：李佳洲、陳信銓、呂育盛。
+                    </div>
+                    <div class="pub-tags">
+                        <span class="tag">產學合作</span>
+                        <span class="tag">PLC系統</span>
+                        <span class="tag">地熱監控</span>
+                        <span class="tag">工研院</span>
+                        <span class="tag">再生能源</span>
+                    </div>
+                </div>
+
+                <div class="publication-item" data-filter="project">
+                    <div class="pub-header">
+                        <div class="pub-date">[112-113] 研究計畫</div>
+                        <div class="pub-type project">進行中</div>
+                    </div>
+                    <div class="pub-title">生成式AI在風電運維自動化的應用研究</div>
+                    <div class="pub-journal">科技部/國科會專題研究計畫</div>
+                    <div class="pub-description">
+                        執行科技部專題研究計畫，探討生成式AI技術在風電運維自動化的創新應用，
+                        開發智慧化的風電設備診斷與維護系統，推動再生能源技術的智慧化發展。
+                    </div>
+                    <div class="pub-tags">
+                        <span class="tag">科技部計畫</span>
+                        <span class="tag">生成式AI</span>
+                        <span class="tag">風電運維</span>
+                        <span class="tag">自動化系統</span>
+                    </div>
+                </div>
+
+                <div class="publication-item" data-filter="project">
+                    <div class="pub-header">
+                        <div class="pub-date">[113-114] 技術開發</div>
+                        <div class="pub-type project">合作中</div>
+                    </div>
+                    <div class="pub-title">AI程式碼自動生成平台開發</div>
+                    <div class="pub-journal">產業界技術合作</div>
+                    <div class="pub-description">
+                        與產業界合作開發AI程式碼自動生成平台，運用大型語言模型技術，
+                        實現自動化監控軟體的快速開發與部署，大幅縮短工業軟體的開發週期。
+                    </div>
+                    <div class="pub-tags">
+                        <span class="tag">AI程式生成</span>
+                        <span class="tag">自動化軟體</span>
+                        <span class="tag">產業合作</span>
+                        <span class="tag">技術轉移</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 招募資訊 -->
+            <div class="video-section">
+                <div class="section-title">
+                    <i class="fas fa-users"></i>
+                    <h2>研究生招募</h2>
+                </div>
+                <div style="text-align: center;">
+                    <h3 style="color: #667eea; margin-bottom: 1rem;">歡迎加入我們的研究團隊！</h3>
+                    <p style="font-size: 1.1rem; color: #666; margin-bottom: 2rem; max-width: 800px; margin-left: auto; margin-right: auto;">
+                        主要研究方向：<strong>生成式AI在自動化的應用</strong><br>
+                        包括風電運維、智慧監控與維護、自動化監控軟體生成等領域<br><br>
+                        有興趣的同學歡迎直接到辦公室 <strong style="color: #667eea;">(G309)</strong> 來參觀詢問<br>
+                        我們提供完整的研究訓練與產學合作機會
+                    </p>
+                    <div style="display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap;">
+                        <a href="contact.html" style="display: inline-flex; align-items: center; background: linear-gradient(135deg, #667eea, #764ba2); color: white; text-decoration: none; padding: 1rem 2rem; border-radius: 25px; transition: transform 0.3s ease;">
+                            <i class="fas fa-envelope" style="margin-right: 0.5rem;"></i>
+                            聯絡我們
+                        </a>
+                        <a href="research.html" style="display: inline-flex; align-items: center; background: white; color: #667eea; text-decoration: none; padding: 1rem 2rem; border-radius: 25px; border: 2px solid #667eea; transition: all 0.3s ease;">
+                            <i class="fas fa-microscope" style="margin-right: 0.5rem;"></i>
+                            了解研究領域
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <script>
+        // 篩選功能
+        const filterTabs = document.querySelectorAll('.filter-tab');
+        const publicationItems = document.querySelectorAll('.publication-item');
+
+        filterTabs.forEach(tab => {
+            tab.addEventListener('click', (e) => {
+                e.preventDefault();
+                
+                // 移除所有active類別
+                filterTabs.forEach(t => t.classList.remove('active'));
+                // 添加active到點擊的標籤
+                tab.classList.add('active');
+                
+                const filter = tab.getAttribute('data-filter');
+                
+                publicationItems.forEach(item => {
+                    if (filter === 'all' || item.getAttribute('data-filter') === filter) {
+                        item.style.display = 'block';
+                        item.style.opacity = '0';
+                        setTimeout(() => {
+                            item.style.opacity = '1';
+                        }, 100);
+                    } else {
+                        item.style.opacity = '0';
+                        setTimeout(() => {
+                            item.style.display = 'none';
+                        }, 300);
+                    }
+                });
+            });
+        });
+
+        // 滾動動畫效果
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // 觀察所有publication項目
+        publicationItems.forEach(item => {
+            item.style.opacity = '0';
+            item.style.transform = 'translateY(30px)';
+            item.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            observer.observe(item);
+        });
+
+        // 統計數字動畫
+        const statNumbers = document.querySelectorAll('.stat-number');
+        const statsObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const target = entry.target;
+                    const finalNumber = target.textContent.replace('+', '');
+                    let currentNumber = 0;
+                    const increment = finalNumber / 20;
+                    
+                    const timer = setInterval(() => {
+                        currentNumber += increment;
+                        if (currentNumber >= finalNumber) {
+                            target.textContent = finalNumber + (target.textContent.includes('+') ? '+' : '');
+                            clearInterval(timer);
+                        } else {
+                            target.textContent = Math.floor(currentNumber) + (target.textContent.includes('+') ? '+' : '');
+                        }
+                    }, 100);
+                }
+            });
+        }, { threshold: 0.5 });
+
+        statNumbers.forEach(stat => {
+            statsObserver.observe(stat);
+        });
+    </script>
+</body>
+</html>

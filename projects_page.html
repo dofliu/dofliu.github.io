@@ -1,0 +1,931 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>專案開發 - DOF Lab</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: #f8f9fa;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        header {
+            background: white;
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+        }
+
+        nav {
+            padding: 1rem 0;
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #667eea;
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover, .nav-links a.active {
+            color: #667eea;
+        }
+
+        .page-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 8rem 0 4rem;
+            margin-top: 80px;
+            text-align: center;
+        }
+
+        .page-header h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .page-header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .main-content {
+            padding: 4rem 0;
+        }
+
+        .project-category {
+            margin-bottom: 4rem;
+        }
+
+        .category-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 3px solid #667eea;
+        }
+
+        .category-header i {
+            font-size: 2rem;
+            color: #667eea;
+        }
+
+        .category-header h2 {
+            font-size: 2rem;
+            color: #333;
+        }
+
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 2rem;
+        }
+
+        .project-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .project-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+        }
+
+        .project-header {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            padding: 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .project-header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.1);
+            transform: rotate(45deg);
+            transition: transform 0.3s ease;
+        }
+
+        .project-card:hover .project-header::before {
+            transform: rotate(45deg) translate(50%, 50%);
+        }
+
+        .project-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        .project-title {
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        .project-subtitle {
+            opacity: 0.9;
+            position: relative;
+            z-index: 2;
+        }
+
+        .project-content {
+            padding: 2rem;
+        }
+
+        .project-description {
+            color: #666;
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+        }
+
+        .tech-stack {
+            margin-bottom: 1.5rem;
+        }
+
+        .tech-stack h4 {
+            color: #333;
+            margin-bottom: 0.5rem;
+            font-size: 1rem;
+        }
+
+        .tech-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .tech-tag {
+            background: #e9ecef;
+            color: #495057;
+            padding: 0.3rem 0.8rem;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+
+        .project-links {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .project-link {
+            display: inline-flex;
+            align-items: center;
+            padding: 0.8rem 1.5rem;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            text-decoration: none;
+            border-radius: 25px;
+            transition: transform 0.3s ease;
+            font-size: 0.9rem;
+        }
+
+        .project-link:hover {
+            transform: scale(1.05);
+        }
+
+        .project-link i {
+            margin-right: 0.5rem;
+        }
+
+        .project-link.secondary {
+            background: white;
+            color: #667eea;
+            border: 2px solid #667eea;
+        }
+
+        .featured-project {
+            grid-column: 1 / -1;
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.1), rgba(118, 75, 162, 0.1));
+            border: 2px solid #667eea;
+        }
+
+        .featured-project .project-header {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+        }
+
+        .demo-section {
+            background: white;
+            padding: 3rem;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+            margin-bottom: 3rem;
+            text-align: center;
+        }
+
+        .demo-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .demo-card {
+            background: #f8f9fa;
+            padding: 2rem;
+            border-radius: 15px;
+            transition: transform 0.3s ease;
+        }
+
+        .demo-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .demo-card i {
+            font-size: 3rem;
+            color: #dc3545;
+            margin-bottom: 1rem;
+        }
+
+        .demo-card h4 {
+            margin-bottom: 1rem;
+            color: #333;
+        }
+
+        .demo-card p {
+            color: #666;
+            margin-bottom: 1.5rem;
+        }
+
+        .demo-link {
+            display: inline-flex;
+            align-items: center;
+            background: linear-gradient(135deg, #dc3545, #c82333);
+            color: white;
+            text-decoration: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 25px;
+            transition: transform 0.3s ease;
+        }
+
+        .demo-link:hover {
+            transform: scale(1.05);
+        }
+
+        .status-badge {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            padding: 0.3rem 0.8rem;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            z-index: 3;
+        }
+
+        .status-completed {
+            background: #28a745;
+            color: white;
+        }
+
+        .status-development {
+            background: #ffc107;
+            color: #333;
+        }
+
+        .status-planning {
+            background: #6c757d;
+            color: white;
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .page-header h1 {
+                font-size: 2rem;
+            }
+
+            .projects-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .featured-project {
+                grid-column: 1;
+            }
+
+            .project-links {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="container">
+                <div class="nav-container">
+                    <a href="index.html" class="logo">DOF Lab</a>
+                    <ul class="nav-links">
+                        <li><a href="index.html">首頁</a></li>
+                        <li><a href="research.html">研究領域</a></li>
+                        <li><a href="publications.html">研究成果</a></li>
+                        <li><a href="projects.html" class="active">專案開發</a></li>
+                        <li><a href="about.html">關於我</a></li>
+                        <li><a href="contact.html">聯絡方式</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <section class="page-header">
+        <div class="container">
+            <h1>專案開發</h1>
+            <p>展示實際的技術應用與系統開發成果，從概念到實作的完整解決方案</p>
+        </div>
+    </section>
+
+    <main class="main-content">
+        <div class="container">
+            
+            <!-- 技術展示影片 -->
+            <div class="demo-section">
+                <div class="category-header" style="justify-content: center; border: none;">
+                    <i class="fab fa-youtube"></i>
+                    <h2>技術展示與示範</h2>
+                </div>
+                <p style="color: #666; font-size: 1.1rem; margin-bottom: 2rem;">
+                    透過實際操作影片，展示我們開發的AI自動化系統與整合平台的強大功能
+                </p>
+                <div class="demo-grid">
+                    <div class="demo-card">
+                        <i class="fab fa-youtube"></i>
+                        <h4>AI程式碼自動生成系統</h4>
+                        <p>展示AI如何理解需求並自動生成控制程式碼，直接上傳到控制板執行的完整流程</p>
+                        <a href="https://www.youtube.com/watch?v=azV1FP1blbE" target="_blank" class="demo-link">
+                            <i class="fas fa-play" style="margin-right: 0.5rem; font-size: 1rem;"></i>
+                            觀看展示
+                        </a>
+                    </div>
+                    <div class="demo-card">
+                        <i class="fab fa-youtube"></i>
+                        <h4>MCP多平台AI整合系統</h4>
+                        <p>展示大語言模型如何整合LINE、行事曆、設備通訊等多個平台的即時資料</p>
+                        <a href="https://www.youtube.com/watch?v=YgxlgmIXzqc" target="_blank" class="demo-link">
+                            <i class="fas fa-play" style="margin-right: 0.5rem; font-size: 1rem;"></i>
+                            觀看展示
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- AI自動化系統 -->
+            <div class="project-category">
+                <div class="category-header">
+                    <i class="fas fa-robot"></i>
+                    <h2>AI自動化系統開發</h2>
+                </div>
+                
+                <div class="projects-grid">
+                    <div class="project-card featured-project">
+                        <div class="project-header">
+                            <div class="status-badge status-completed">已完成</div>
+                            <div class="project-icon">
+                                <i class="fas fa-brain"></i>
+                            </div>
+                            <div class="project-title">AI程式碼自動生成平台</div>
+                            <div class="project-subtitle">AI-Powered Code Generation Platform</div>
+                        </div>
+                        <div class="project-content">
+                            <div class="project-description">
+                                運用大型語言模型技術，開發能夠理解自然語言需求並自動生成控制程式碼的智慧平台。
+                                系統可以直接將生成的程式碼上傳到控制板執行，大幅縮短自動化系統的開發週期。
+                                支援多種控制器平台，包括Arduino、PLC、Raspberry Pi等。
+                            </div>
+                            <div class="tech-stack">
+                                <h4>核心技術：</h4>
+                                <div class="tech-tags">
+                                    <span class="tech-tag">Large Language Model</span>
+                                    <span class="tech-tag">自然語言處理</span>
+                                    <span class="tech-tag">程式碼生成</span>
+                                    <span class="tech-tag">Arduino</span>
+                                    <span class="tech-tag">PLC Programming</span>
+                                    <span class="tech-tag">Python</span>
+                                    <span class="tech-tag">Web API</span>
+                                </div>
+                            </div>
+                            <div class="project-links">
+                                <a href="https://www.youtube.com/watch?v=azV1FP1blbE" target="_blank" class="project-link">
+                                    <i class="fab fa-youtube"></i>
+                                    技術展示
+                                </a>
+                                <a href="contact.html" class="project-link secondary">
+                                    <i class="fas fa-envelope"></i>
+                                    技術諮詢
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="project-card">
+                        <div class="project-header">
+                            <div class="status-badge status-completed">已完成</div>
+                            <div class="project-icon">
+                                <i class="fas fa-network-wired"></i>
+                            </div>
+                            <div class="project-title">MCP多平台整合系統</div>
+                            <div class="project-subtitle">Multi-Platform Communication Protocol</div>
+                        </div>
+                        <div class="project-content">
+                            <div class="project-description">
+                                開發基於MCP協議的多平台AI整合系統，能夠同時整合LINE訊息、Google行事曆、
+                                IoT設備通訊等多個平台的即時資料，實現統一的智慧管理介面。
+                            </div>
+                            <div class="tech-stack">
+                                <h4>整合平台：</h4>
+                                <div class="tech-tags">
+                                    <span class="tech-tag">LINE Bot</span>
+                                    <span class="tech-tag">Google Calendar</span>
+                                    <span class="tech-tag">IoT通訊</span>
+                                    <span class="tech-tag">即時資料</span>
+                                    <span class="tech-tag">API整合</span>
+                                    <span class="tech-tag">大語言模型</span>
+                                </div>
+                            </div>
+                            <div class="project-links">
+                                <a href="https://www.youtube.com/watch?v=YgxlgmIXzqc" target="_blank" class="project-link">
+                                    <i class="fab fa-youtube"></i>
+                                    系統展示
+                                </a>
+                                <a href="contact.html" class="project-link secondary">
+                                    <i class="fas fa-info-circle"></i>
+                                    了解更多
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="project-card">
+                        <div class="project-header">
+                            <div class="status-badge status-development">開發中</div>
+                            <div class="project-icon">
+                                <i class="fas fa-cogs"></i>
+                            </div>
+                            <div class="project-title">智慧監控軟體生成器</div>
+                            <div class="project-subtitle">Smart Monitoring Software Generator</div>
+                        </div>
+                        <div class="project-content">
+                            <div class="project-description">
+                                利用AI技術自動生成客製化的監控軟體，根據使用者需求自動建構HMI介面、
+                                SCADA系統和Web監控平台，支援多種工業通訊協議。
+                            </div>
+                            <div class="tech-stack">
+                                <h4>開發技術：</h4>
+                                <div class="tech-tags">
+                                    <span class="tech-tag">HMI Design</span>
+                                    <span class="tech-tag">SCADA</span>
+                                    <span class="tech-tag">Web Dashboard</span>
+                                    <span class="tech-tag">Modbus</span>
+                                    <span class="tech-tag">OPC UA</span>
+                                    <span class="tech-tag">React</span>
+                                </div>
+                            </div>
+                            <div class="project-links">
+                                <a href="contact.html" class="project-link">
+                                    <i class="fas fa-handshake"></i>
+                                    合作開發
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 風電監控系統 -->
+            <div class="project-category">
+                <div class="category-header">
+                    <i class="fas fa-wind"></i>
+                    <h2>風電監控與維護系統</h2>
+                </div>
+                
+                <div class="projects-grid">
+                    <div class="project-card">
+                        <div class="project-header">
+                            <div class="status-badge status-completed">已完成</div>
+                            <div class="project-icon">
+                                <i class="fas fa-eye"></i>
+                            </div>
+                            <div class="project-title">AR風電維護輔助平台</div>
+                            <div class="project-subtitle">AR-based Wind Turbine Maintenance Platform</div>
+                        </div>
+                        <div class="project-content">
+                            <div class="project-description">
+                                設計並實作基於擴增實境的互動式即時風電維護輔助平台系統，
+                                整合AR技術與IoT感測器，提供直觀的維護指導介面，提升維護效率與準確性。
+                            </div>
+                            <div class="tech-stack">
+                                <h4>核心技術：</h4>
+                                <div class="tech-tags">
+                                    <span class="tech-tag">擴增實境 (AR)</span>
+                                    <span class="tech-tag">3D建模</span>
+                                    <span class="tech-tag">IoT感測器</span>
+                                    <span class="tech-tag">即時資料</span>
+                                    <span class="tech-tag">Unity</span>
+                                    <span class="tech-tag">移動裝置</span>
+                                </div>
+                            </div>
+                            <div class="project-links">
+                                <a href="publications.html" class="project-link">
+                                    <i class="fas fa-file-alt"></i>
+                                    發表論文
+                                </a>
+                                <a href="contact.html" class="project-link secondary">
+                                    <i class="fas fa-handshake"></i>
+                                    技術合作
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="project-card">
+                        <div class="project-header">
+                            <div class="status-badge status-completed">已完成</div>
+                            <div class="project-icon">
+                                <i class="fas fa-chart-line"></i>
+                            </div>
+                            <div class="project-title">風電可靠性分析系統</div>
+                            <div class="project-subtitle">Wind Farm Reliability Analysis System</div>
+                        </div>
+                        <div class="project-content">
+                            <div class="project-description">
+                                應用Power Law Process進行風電場可靠性分析，建立風電機組故障模式分析模型，
+                                為風電場的維護策略提供數據支援與決策建議。
+                            </div>
+                            <div class="tech-stack">
+                                <h4>分析方法：</h4>
+                                <div class="tech-tags">
+                                    <span class="tech-tag">Power Law Process</span>
+                                    <span class="tech-tag">統計分析</span>
+                                    <span class="tech-tag">故障模式分析</span>
+                                    <span class="tech-tag">預測性維護</span>
+                                    <span class="tech-tag">R語言</span>
+                                    <span class="tech-tag">Python</span>
+                                </div>
+                            </div>
+                            <div class="project-links">
+                                <a href="publications.html" class="project-link">
+                                    <i class="fas fa="file-alt"></i>
+                                    研究成果
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="project-card">
+                        <div class="project-header">
+                            <div class="status-badge status-development">開發中</div>
+                            <div class="project-icon">
+                                <i class="fas fa-brain"></i>
+                            </div>
+                            <div class="project-title">AI智慧風電診斷系統</div>
+                            <div class="project-subtitle">AI-Powered Wind Turbine Diagnostic System</div>
+                        </div>
+                        <div class="project-content">
+                            <div class="project-description">
+                                結合機器學習與深度學習技術，開發智慧化的風電機組故障診斷系統，
+                                能夠即時分析振動、溫度、功率等多種感測器數據，提前預警潛在故障。
+                            </div>
+                            <div class="tech-stack">
+                                <h4>AI技術：</h4>
+                                <div class="tech-tags">
+                                    <span class="tech-tag">機器學習</span>
+                                    <span class="tech-tag">深度學習</span>
+                                    <span class="tech-tag">異常檢測</span>
+                                    <span class="tech-tag">時序分析</span>
+                                    <span class="tech-tag">TensorFlow</span>
+                                    <span class="tech-tag">PyTorch</span>
+                                </div>
+                            </div>
+                            <div class="project-links">
+                                <a href="contact.html" class="project-link">
+                                    <i class="fas fa-lightbulb"></i>
+                                    創新合作
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 產學合作專案 -->
+            <div class="project-category">
+                <div class="category-header">
+                    <i class="fas fa-handshake"></i>
+                    <h2>產學合作專案</h2>
+                </div>
+                
+                <div class="projects-grid">
+                    <div class="project-card">
+                        <div class="project-header">
+                            <div class="status-badge status-completed">已完成</div>
+                            <div class="project-icon">
+                                <i class="fas fa-thermometer-half"></i>
+                            </div>
+                            <div class="project-title">智能PLC地熱監控系統</div>
+                            <div class="project-subtitle">Intelligent PLC Geothermal Monitoring System</div>
+                        </div>
+                        <div class="project-content">
+                            <div class="project-description">
+                                與工研院綠能所合作開發的智能PLC地熱監控系統，結合PLC控制技術與智慧監控演算法，
+                                提升地熱發電系統的運行效率與可靠性。總計畫金額40萬元。
+                            </div>
+                            <div class="tech-stack">
+                                <h4>技術規格：</h4>
+                                <div class="tech-tags">
+                                    <span class="tech-tag">PLC控制</span>
+                                    <span class="tech-tag">地熱監控</span>
+                                    <span class="tech-tag">SCADA系統</span>
+                                    <span class="tech-tag">工研院合作</span>
+                                    <span class="tech-tag">再生能源</span>
+                                    <span class="tech-tag">智慧控制</span>
+                                </div>
+                            </div>
+                            <div class="project-links">
+                                <a href="publications.html" class="project-link">
+                                    <i class="fas fa-trophy"></i>
+                                    專案成果
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="project-card">
+                        <div class="project-header">
+                            <div class="status-badge status-development">進行中</div>
+                            <div class="project-icon">
+                                <i class="fas fa-flask"></i>
+                            </div>
+                            <div class="project-title">生成式AI風電運維研究</div>
+                            <div class="project-subtitle">Generative AI for Wind Power O&M</div>
+                        </div>
+                        <div class="project-content">
+                            <div class="project-description">
+                                科技部/國科會專題研究計畫，探討生成式AI技術在風電運維自動化的創新應用，
+                                開發智慧化的風電設備診斷與維護系統。
+                            </div>
+                            <div class="tech-stack">
+                                <h4>研究重點：</h4>
+                                <div class="tech-tags">
+                                    <span class="tech-tag">生成式AI</span>
+                                    <span class="tech-tag">風電運維</span>
+                                    <span class="tech-tag">預測性維護</span>
+                                    <span class="tech-tag">科技部計畫</span>
+                                    <span class="tech-tag">學術研究</span>
+                                </div>
+                            </div>
+                            <div class="project-links">
+                                <a href="research.html" class="project-link">
+                                    <i class="fas fa-microscope"></i>
+                                    研究方向
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="project-card">
+                        <div class="project-header">
+                            <div class="status-badge status-planning">規劃中</div>
+                            <div class="project-icon">
+                                <i class="fas fa-industry"></i>
+                            </div>
+                            <div class="project-title">智慧製造AI平台</div>
+                            <div class="project-subtitle">Smart Manufacturing AI Platform</div>
+                        </div>
+                        <div class="project-content">
+                            <div class="project-description">
+                                與產業界合作規劃的智慧製造AI平台，整合生成式AI、IoT、大數據分析等技術，
+                                為製造業提供全方位的智慧化解決方案。
+                            </div>
+                            <div class="tech-stack">
+                                <h4>預計技術：</h4>
+                                <div class="tech-tags">
+                                    <span class="tech-tag">智慧製造</span>
+                                    <span class="tech-tag">AI平台</span>
+                                    <span class="tech-tag">大數據分析</span>
+                                    <span class="tech-tag">產業4.0</span>
+                                    <span class="tech-tag">雲端運算</span>
+                                </div>
+                            </div>
+                            <div class="project-links">
+                                <a href="contact.html" class="project-link">
+                                    <i class="fas fa-handshake"></i>
+                                    合作洽談
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 開源專案與工具 -->
+            <div class="project-category">
+                <div class="category-header">
+                    <i class="fab fa-github"></i>
+                    <h2>開源專案與工具</h2>
+                </div>
+                
+                <div class="projects-grid">
+                    <div class="project-card">
+                        <div class="project-header">
+                            <div class="status-badge status-completed">已發布</div>
+                            <div class="project-icon">
+                                <i class="fas fa-code"></i>
+                            </div>
+                            <div class="project-title">AI程式碼生成工具庫</div>
+                            <div class="project-subtitle">AI Code Generation Toolkit</div>
+                        </div>
+                        <div class="project-content">
+                            <div class="project-description">
+                                開源的AI程式碼生成工具庫，提供多種程式語言的自動生成功能，
+                                支援Arduino、Python、C++等語言的控制程式碼生成。
+                            </div>
+                            <div class="tech-stack">
+                                <h4>支援語言：</h4>
+                                <div class="tech-tags">
+                                    <span class="tech-tag">Python</span>
+                                    <span class="tech-tag">C++</span>
+                                    <span class="tech-tag">Arduino</span>
+                                    <span class="tech-tag">JavaScript</span>
+                                    <span class="tech-tag">開源專案</span>
+                                </div>
+                            </div>
+                            <div class="project-links">
+                                <a href="https://github.com/dofliu" target="_blank" class="project-link">
+                                    <i class="fab fa-github"></i>
+                                    GitHub
+                                </a>
+                                <a href="contact.html" class="project-link secondary">
+                                    <i class="fas fa-question-circle"></i>
+                                    技術支援
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="project-card">
+                        <div class="project-header">
+                            <div class="status-badge status-development">開發中</div>
+                            <div class="project-icon">
+                                <i class="fas fa-tools"></i>
+                            </div>
+                            <div class="project-title">監控系統快速部署工具</div>
+                            <div class="project-subtitle">Monitoring System Deployment Tool</div>
+                        </div>
+                        <div class="project-content">
+                            <div class="project-description">
+                                開發中的監控系統快速部署工具，讓使用者能夠透過簡單的設定檔，
+                                快速建立客製化的監控系統與儀表板。
+                            </div>
+                            <div class="tech-stack">
+                                <h4>技術特色：</h4>
+                                <div class="tech-tags">
+                                    <span class="tech-tag">快速部署</span>
+                                    <span class="tech-tag">Docker</span>
+                                    <span class="tech-tag">配置管理</span>
+                                    <span class="tech-tag">Web界面</span>
+                                    <span class="tech-tag">模組化設計</span>
+                                </div>
+                            </div>
+                            <div class="project-links">
+                                <a href="contact.html" class="project-link">
+                                    <i class="fas fa-bell"></i>
+                                    發布通知
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 聯絡合作區塊 -->
+            <div class="demo-section">
+                <div class="category-header" style="justify-content: center; border: none;">
+                    <i class="fas fa-rocket"></i>
+                    <h2>開始您的專案</h2>
+                </div>
+                <p style="color: #666; font-size: 1.1rem; margin-bottom: 2rem; max-width: 800px; margin-left: auto; margin-right: auto;">
+                    無論您需要技術諮詢、專案合作或是客製化系統開發，我們都能提供專業的支援與解決方案。
+                    歡迎與我們討論您的需求，讓AI技術為您的事業帶來創新突破。
+                </p>
+                <div style="display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap;">
+                    <a href="contact.html" style="display: inline-flex; align-items: center; background: linear-gradient(135deg, #667eea, #764ba2); color: white; text-decoration: none; padding: 1rem 2rem; border-radius: 25px; transition: transform 0.3s ease;">
+                        <i class="fas fa-envelope" style="margin-right: 0.5rem;"></i>
+                        聯絡我們
+                    </a>
+                    <a href="research.html" style="display: inline-flex; align-items: center; background: white; color: #667eea; text-decoration: none; padding: 1rem 2rem; border-radius: 25px; border: 2px solid #667eea; transition: all 0.3s ease;">
+                        <i class="fas fa-microscope" style="margin-right: 0.5rem;"></i>
+                        了解研究
+                    </a>
+                    <a href="about.html" style="display: inline-flex; align-items: center; background: white; color: #667eea; text-decoration: none; padding: 1rem 2rem; border-radius: 25px; border: 2px solid #667eea; transition: all 0.3s ease;">
+                        <i class="fas fa-user" style="margin-right: 0.5rem;"></i>
+                        關於我們
+                    </a>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <script>
+        // 滾動動畫效果
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // 觀察所有專案卡片
+        document.querySelectorAll('.project-card').forEach(card => {
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(30px)';
+            card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            observer.observe(card);
+        });
+
+        // 專案卡片hover效果增強
+        document.querySelectorAll('.project-card').forEach(card => {
+            card.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-10px) scale(1.02)';
+            });
+            
+            card.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateY(-5px) scale(1)';
+            });
+        });
+
+        // 狀態徽章動畫
+        document.querySelectorAll('.status-badge').forEach(badge => {
+            badge.addEventListener('mouseenter', function() {
+                this.style.transform = 'scale(1.1)';
+            });
+            
+            badge.addEventListener('mouseleave', function() {
+                this.style.transform = 'scale(1)';
+            });
+        });
+    </script>
+</body>
+</html>

@@ -3,7 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DOF Lab - AI Applications</title>
+    <title>DOF Lab - 劉瑞雄教授 | 生成式AI與自動化研究</title>
+    <meta name="description" content="劉瑞雄教授個人研究網站 - 專注於生成式AI在自動化的應用，風電運維，智慧監控與維護">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -22,221 +24,508 @@
         .container {
             max-width: 1200px;
             margin: 0 auto;
-            padding: 20px;
+            padding: 0 20px;
         }
 
         header {
-            text-align: center;
-            padding: 60px 0;
-            color: white;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        nav {
+            padding: 1rem 0;
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
 
         .logo {
-            font-size: 3rem;
+            font-size: 1.8rem;
             font-weight: bold;
-            margin-bottom: 10px;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
-        }
-
-        .tagline {
-            font-size: 1.2rem;
-            opacity: 0.9;
-            margin-bottom: 40px;
-        }
-
-        .hero-section {
-            background: white;
-            border-radius: 15px;
-            padding: 60px 40px;
-            margin: 40px 0;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-            text-align: center;
-        }
-
-        .hero-title {
-            font-size: 2.5rem;
-            color: #2c3e50;
-            margin-bottom: 20px;
-        }
-
-        .hero-description {
-            font-size: 1.1rem;
-            color: #7f8c8d;
-            margin-bottom: 40px;
-            max-width: 700px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-
-        .cta-button {
-            display: inline-block;
-            background: linear-gradient(45deg, #3498db, #2980b9);
-            color: white;
-            padding: 15px 40px;
-            border-radius: 50px;
+            color: #667eea;
             text-decoration: none;
-            font-size: 1.1rem;
-            font-weight: bold;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            box-shadow: 0 4px 15px rgba(52, 152, 219, 0.4);
         }
 
-        .cta-button:hover {
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: #667eea;
+        }
+
+        .hero {
+            margin-top: 80px;
+            padding: 4rem 0;
+            text-align: center;
+            color: white;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            animation: fadeInUp 1s ease;
+        }
+
+        .hero .subtitle {
+            font-size: 1.3rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+            animation: fadeInUp 1s ease 0.2s both;
+        }
+
+        .hero .description {
+            font-size: 1.1rem;
+            max-width: 800px;
+            margin: 0 auto 3rem;
+            opacity: 0.8;
+            animation: fadeInUp 1s ease 0.4s both;
+        }
+
+        .cta-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+            animation: fadeInUp 1s ease 0.6s both;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            padding: 1rem 2rem;
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .btn:hover {
+            background: rgba(255, 255, 255, 0.3);
             transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(52, 152, 219, 0.6);
+        }
+
+        .btn i {
+            margin-right: 0.5rem;
+        }
+
+        .btn.primary {
+            background: rgba(255, 255, 255, 0.9);
+            color: #333;
+        }
+
+        .btn.primary:hover {
+            background: white;
+        }
+
+        .main-content {
+            background: white;
+            margin-top: 2rem;
+            border-radius: 20px 20px 0 0;
+            box-shadow: 0 -10px 50px rgba(0, 0, 0, 0.1);
+        }
+
+        .section {
+            padding: 4rem 0;
+        }
+
+        .section h2 {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            color: #333;
+            position: relative;
+        }
+
+        .section h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 3px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
         }
 
         .features {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 30px;
-            margin: 60px 0;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
         }
 
-        .feature-card {
-            background: white;
-            padding: 40px 30px;
+        .feature {
+            background: #f8f9fa;
+            padding: 2rem;
             border-radius: 15px;
             text-align: center;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .feature:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .feature i {
+            font-size: 3rem;
+            color: #667eea;
+            margin-bottom: 1rem;
+        }
+
+        .feature h3 {
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+            color: #333;
+        }
+
+        .recent-updates {
+            background: #f8f9fa;
+        }
+
+        .updates-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .update-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
             transition: transform 0.3s ease;
         }
 
-        .feature-card:hover {
-            transform: translateY(-5px);
+        .update-card:hover {
+            transform: translateY(-3px);
         }
 
-        .feature-icon {
-            font-size: 3rem;
-            margin-bottom: 20px;
+        .update-date {
+            color: #667eea;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
         }
 
-        .feature-title {
-            font-size: 1.3rem;
-            color: #2c3e50;
-            margin-bottom: 15px;
+        .update-title {
+            font-size: 1.1rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            color: #333;
         }
 
-        .feature-description {
-            color: #7f8c8d;
-            line-height: 1.6;
+        .video-section {
+            text-align: center;
+            margin-top: 3rem;
+        }
+
+        .video-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .video-card {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s ease;
+        }
+
+        .video-card:hover {
+            transform: translateY(-3px);
+        }
+
+        .video-card h4 {
+            margin-bottom: 1rem;
+            color: #333;
+        }
+
+        .video-card a {
+            display: inline-flex;
+            align-items: center;
+            color: #667eea;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .video-card a i {
+            margin-right: 0.5rem;
         }
 
         footer {
-            background: rgba(255,255,255,0.1);
+            background: #333;
             color: white;
             text-align: center;
-            padding: 40px 0;
-            margin-top: 60px;
-            border-radius: 15px;
+            padding: 3rem 0;
         }
 
-        .footer-links {
-            margin-bottom: 20px;
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
         }
 
-        .footer-links a {
-            color: white;
+        .footer-section h3 {
+            margin-bottom: 1rem;
+            color: #667eea;
+        }
+
+        .footer-section a {
+            color: #ccc;
             text-decoration: none;
-            margin: 0 20px;
-            opacity: 0.8;
-            transition: opacity 0.3s ease;
+            display: block;
+            margin-bottom: 0.5rem;
+            transition: color 0.3s ease;
         }
 
-        .footer-links a:hover {
-            opacity: 1;
-            text-decoration: underline;
+        .footer-section a:hover {
+            color: white;
         }
 
-        .copyright {
-            opacity: 0.7;
-            font-size: 0.9rem;
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         @media (max-width: 768px) {
-            .hero-title {
+            .nav-links {
+                display: none;
+            }
+
+            .hero h1 {
                 font-size: 2rem;
             }
-            
-            .logo {
+
+            .hero .subtitle {
+                font-size: 1.1rem;
+            }
+
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .section {
+                padding: 2rem 0;
+            }
+
+            .section h2 {
                 font-size: 2rem;
-            }
-            
-            .hero-section {
-                padding: 40px 20px;
-            }
-            
-            .feature-card {
-                padding: 30px 20px;
             }
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <header>
-            <div class="logo">DOF Lab</div>
-            <div class="tagline">創新 AI 解決方案實驗室</div>
-        </header>
-
-        <div class="hero-section">
-            <h1 class="hero-title">多元 AI 應用平台</h1>
-            <p class="hero-description">
-                DOF Lab 不僅提供 <strong>AI Email 個人秘書</strong>，更建構了多種智慧化應用：<br>
-                <strong>個人 AI 秘書</strong>（<a href="https://aiemail.doflab.cc">aiemail.doflab.cc</a>）、<br>
-                <strong>個人知識庫</strong>（<a href="https://knowledge.doflab.cc">knowledge.doflab.cc</a>）、<br>
-                <strong>AI 課程學習</strong>（<a href="https://aicourse.doflab.cc">aicourse.doflab.cc</a>），<br>
-                以及各種 <strong>AI 自動化應用</strong>，協助您在工作、學習與研究中全面提升效率。
-            </p>
-            <a href="https://aiemail.doflab.cc" class="cta-button">立即體驗</a>
-        </div>
-
-        <div class="features">
-            <div class="feature-card">
-                <div class="feature-icon">📧</div>
-                <h3 class="feature-title">個人 AI 秘書</h3>
-                <p class="feature-description">
-                    自動分類、智能回覆、重要提醒，讓您更輕鬆管理電子郵件。
-                </p>
+    <header>
+        <nav>
+            <div class="container">
+                <div class="nav-container">
+                    <a href="#" class="logo">DOF Lab</a>
+                    <ul class="nav-links">
+                        <li><a href="#home">首頁</a></li>
+                        <li><a href="research.html">研究領域</a></li>
+                        <li><a href="publications.html">研究成果</a></li>
+                        <li><a href="projects.html">專案開發</a></li>
+                        <li><a href="about.html">關於我</a></li>
+                        <li><a href="contact.html">聯絡方式</a></li>
+                    </ul>
+                </div>
             </div>
+        </nav>
+    </header>
 
-            <div class="feature-card">
-                <div class="feature-icon">📚</div>
-                <h3 class="feature-title">個人知識庫</h3>
-                <p class="feature-description">
-                    建立專屬的知識管理系統，快速檢索與整理資訊，成為您的第二大腦。
-                </p>
+    <section id="home" class="hero">
+        <div class="container">
+            <h1>劉瑞雄教授</h1>
+            <div class="subtitle">生成式AI與自動化研究專家</div>
+            <div class="description">
+                專注於生成式AI在自動化的應用，包括風電運維、智慧監控與維護、以及自動化監控軟體生成。
+                結合理論研究與實務應用，致力於推動智慧製造與再生能源技術發展。
             </div>
-
-            <div class="feature-card">
-                <div class="feature-icon">🎓</div>
-                <h3 class="feature-title">AI 課程學習</h3>
-                <p class="feature-description">
-                    提供多樣化 AI 課程與練習，結合理論與實務，打造專屬的學習歷程。
-                </p>
-            </div>
-
-            <div class="feature-card">
-                <div class="feature-icon">⚙️</div>
-                <h3 class="feature-title">AI 自動化應用</h3>
-                <p class="feature-description">
-                    整合各式 AI 工具與自動化流程，減少重複工作，提升研究與產業效率。
-                </p>
+            <div class="cta-buttons">
+                <a href="research.html" class="btn primary">
+                    <i class="fas fa-microscope"></i>
+                    探索研究領域
+                </a>
+                <a href="projects.html" class="btn">
+                    <i class="fas fa-code"></i>
+                    查看專案開發
+                </a>
+                <a href="contact.html" class="btn">
+                    <i class="fas fa-envelope"></i>
+                    聯絡合作
+                </a>
             </div>
         </div>
-    </div>
+    </section>
+
+    <main class="main-content">
+        <section class="section">
+            <div class="container">
+                <h2>核心研究領域</h2>
+                <div class="features">
+                    <div class="feature">
+                        <i class="fas fa-robot"></i>
+                        <h3>生成式AI應用</h3>
+                        <p>運用最新的生成式AI技術，開發智慧化的自動化解決方案，提升工業生產效率與品質</p>
+                    </div>
+                    <div class="feature">
+                        <i class="fas fa-wind"></i>
+                        <h3>風電運維系統</h3>
+                        <p>專業的風力發電機組監控與維護系統開發，提高再生能源設備的運行可靠性</p>
+                    </div>
+                    <div class="feature">
+                        <i class="fas fa-eye"></i>
+                        <h3>智慧監控平台</h3>
+                        <p>整合AR技術的即時監控系統，實現設備狀態的可視化管理與預測性維護</p>
+                    </div>
+                    <div class="feature">
+                        <i class="fas fa-cogs"></i>
+                        <h3>自動化軟體生成</h3>
+                        <p>利用AI技術自動生成監控軟體程式碼，大幅縮短開發週期並提升系統穩定性</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section recent-updates">
+            <div class="container">
+                <h2>最新消息與成果</h2>
+                
+                <div class="video-section">
+                    <h3>研究影片介紹</h3>
+                    <div class="video-grid">
+                        <div class="video-card">
+                            <h4>AI幫你產生程式碼</h4>
+                            <p>展示AI自動生成程式碼並上傳到控制板的完整流程</p>
+                            <a href="https://www.youtube.com/watch?v=azV1FP1blbE" target="_blank">
+                                <i class="fab fa-youtube"></i>
+                                觀看影片
+                            </a>
+                        </div>
+                        <div class="video-card">
+                            <h4>MCP - AI大語言模型自動化整合</h4>
+                            <p>整合LINE、行事曆、設備通訊即時資料的智慧系統</p>
+                            <a href="https://www.youtube.com/watch?v=YgxlgmIXzqc" target="_blank">
+                                <i class="fab fa-youtube"></i>
+                                觀看影片
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="updates-grid">
+                    <div class="update-card">
+                        <div class="update-date">[114.05] SCIE期刊發表</div>
+                        <div class="update-title">風電可靠性分析研究</div>
+                        <p>論文"Application of the Power Law Process in the Reliability Analysis of a Wind Farm: A Case Study Approach"獲JCSME期刊刊登</p>
+                    </div>
+                    <div class="update-card">
+                        <div class="update-date">[114.05] SCIE期刊發表</div>
+                        <div class="update-title">風電機組結構改良設計</div>
+                        <p>"Design Improvement and Strength Analysis of a Pin Lock Structure for Wind Turbine Hub"獲JCSME期刊刊登</p>
+                    </div>
+                    <div class="update-card">
+                        <div class="update-date">[113.11] SCIE期刊發表</div>
+                        <div class="update-title">AR風電維護系統</div>
+                        <p>"Design and Implementation of an Augmented Reality-based Interactive and Real-time Wind Turbine Maintenance Auxiliary Platform System"獲Sensors and Materials期刊刊登</p>
+                    </div>
+                    <div class="update-card">
+                        <div class="update-date">[實驗室招募]</div>
+                        <div class="update-title">研究生招募中</div>
+                        <p>主要研究方向：生成式AI在自動化的應用。有興趣者歡迎直接到辦公室(G309)參觀詢問</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
 
     <footer>
         <div class="container">
-            <div class="footer-links">
-                <a href="/privacy.html">隱私政策</a>
-                <a href="mailto:moredof@gmail.com">聯絡我們</a>
-                <a href="https://aiemail.doflab.cc">使用服務</a>
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>快速連結</h3>
+                    <a href="research.html">研究領域</a>
+                    <a href="publications.html">研究成果</a>
+                    <a href="projects.html">專案開發</a>
+                    <a href="about.html">關於我</a>
+                </div>
+                <div class="footer-section">
+                    <h3>聯絡資訊</h3>
+                    <a href="mailto:contact@doflab.cc">contact@doflab.cc</a>
+                    <a href="#">辦公室：G309</a>
+                    <a href="#">研究室：瘋風機 Wind Turbine Chaser</a>
+                </div>
+                <div class="footer-section">
+                    <h3>相關連結</h3>
+                    <a href="https://sites.google.com/view/jui-hung-liu" target="_blank">Google Sites 研究頁面</a>
+                    <a href="https://github.com/dofliu" target="_blank">GitHub 專案</a>
+                </div>
             </div>
-            <div class="copyright">
-                © 2025 DOF Lab. All rights reserved.
+            <div style="border-top: 1px solid #555; padding-top: 2rem; margin-top: 2rem;">
+                <p>&copy; 2025 DOF Lab - 劉瑞雄教授. All rights reserved.</p>
+                <p>Powered by AI-Generated Web Solutions</p>
             </div>
         </div>
     </footer>
+
+    <script>
+        // 平滑滾動效果
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // 滾動時的導航條效果
+        window.addEventListener('scroll', function() {
+            const header = document.querySelector('header');
+            if (window.scrollY > 100) {
+                header.style.background = 'rgba(255, 255, 255, 0.98)';
+            } else {
+                header.style.background = 'rgba(255, 255, 255, 0.95)';
+            }
+        });
+    </script>
 </body>
 </html>
