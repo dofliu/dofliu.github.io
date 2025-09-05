@@ -1,0 +1,695 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>關於我 - DOF Lab</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: #f8f9fa;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        header {
+            background: white;
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+        }
+
+        nav {
+            padding: 1rem 0;
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #667eea;
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover, .nav-links a.active {
+            color: #667eea;
+        }
+
+        .page-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 8rem 0 4rem;
+            margin-top: 80px;
+            text-align: center;
+        }
+
+        .page-header h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .page-header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .main-content {
+            padding: 4rem 0;
+        }
+
+        .intro-section {
+            background: white;
+            padding: 4rem;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            margin-bottom: 3rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .intro-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+        }
+
+        .intro-content {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 3rem;
+            align-items: center;
+        }
+
+        .profile-image {
+            text-align: center;
+        }
+
+        .profile-placeholder {
+            width: 250px;
+            height: 250px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto;
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.3);
+        }
+
+        .profile-placeholder i {
+            font-size: 6rem;
+            color: white;
+        }
+
+        .intro-text h2 {
+            font-size: 2.5rem;
+            color: #333;
+            margin-bottom: 1rem;
+        }
+
+        .intro-text .title {
+            font-size: 1.3rem;
+            color: #667eea;
+            font-weight: 600;
+            margin-bottom: 2rem;
+        }
+
+        .intro-text p {
+            font-size: 1.1rem;
+            color: #666;
+            margin-bottom: 1.5rem;
+            line-height: 1.8;
+        }
+
+        .highlight-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .stat-item {
+            text-align: center;
+            padding: 1.5rem;
+            background: #f8f9fa;
+            border-radius: 15px;
+            transition: transform 0.3s ease;
+        }
+
+        .stat-item:hover {
+            transform: translateY(-5px);
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #667eea;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            color: #666;
+            font-weight: 600;
+        }
+
+        .section {
+            background: white;
+            padding: 3rem;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+            margin-bottom: 3rem;
+        }
+
+        .section-title {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 3px solid #667eea;
+        }
+
+        .section-title i {
+            font-size: 2rem;
+            color: #667eea;
+        }
+
+        .section-title h3 {
+            font-size: 2rem;
+            color: #333;
+        }
+
+        .timeline {
+            position: relative;
+            padding-left: 2rem;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 3px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 2rem;
+            padding-left: 2rem;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -1.75rem;
+            top: 0.5rem;
+            width: 1rem;
+            height: 1rem;
+            border-radius: 50%;
+            background: #667eea;
+            border: 3px solid white;
+            box-shadow: 0 0 0 3px #667eea;
+        }
+
+        .timeline-year {
+            color: #667eea;
+            font-weight: bold;
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .timeline-content h4 {
+            color: #333;
+            margin-bottom: 0.5rem;
+        }
+
+        .timeline-content p {
+            color: #666;
+            margin-bottom: 0.5rem;
+        }
+
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .skill-category {
+            background: #f8f9fa;
+            padding: 2rem;
+            border-radius: 15px;
+            border-left: 5px solid #667eea;
+        }
+
+        .skill-category h4 {
+            color: #333;
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+        }
+
+        .skill-list {
+            list-style: none;
+        }
+
+        .skill-list li {
+            margin-bottom: 0.8rem;
+            padding: 0.5rem 1rem;
+            background: white;
+            border-radius: 8px;
+            transition: transform 0.3s ease;
+            position: relative;
+            padding-left: 2rem;
+        }
+
+        .skill-list li:hover {
+            transform: translateX(5px);
+        }
+
+        .skill-list li::before {
+            content: '▶';
+            position: absolute;
+            left: 0.5rem;
+            color: #667eea;
+        }
+
+        .achievements-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .achievement-card {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            padding: 2rem;
+            border-radius: 15px;
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+
+        .achievement-card:hover {
+            transform: scale(1.05);
+        }
+
+        .achievement-card i {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .achievement-card h4 {
+            margin-bottom: 0.5rem;
+        }
+
+        .philosophy-section {
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.1), rgba(118, 75, 162, 0.1));
+            padding: 3rem;
+            border-radius: 15px;
+            text-align: center;
+            border: 2px solid #667eea;
+        }
+
+        .philosophy-section h3 {
+            color: #333;
+            margin-bottom: 1.5rem;
+            font-size: 2rem;
+        }
+
+        .philosophy-section p {
+            font-size: 1.2rem;
+            color: #666;
+            line-height: 1.8;
+            max-width: 800px;
+            margin: 0 auto 2rem;
+        }
+
+        .philosophy-section blockquote {
+            font-style: italic;
+            font-size: 1.3rem;
+            color: #667eea;
+            border-left: 4px solid #667eea;
+            padding-left: 2rem;
+            margin: 2rem 0;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .page-header h1 {
+                font-size: 2rem;
+            }
+
+            .intro-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .highlight-stats {
+                grid-template-columns: 1fr;
+            }
+
+            .skills-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .achievements-grid {
+                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            }
+
+            .intro-section, .section {
+                padding: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="container">
+                <div class="nav-container">
+                    <a href="index.html" class="logo">DOF Lab</a>
+                    <ul class="nav-links">
+                        <li><a href="index.html">首頁</a></li>
+                        <li><a href="research.html">研究領域</a></li>
+                        <li><a href="publications.html">研究成果</a></li>
+                        <li><a href="projects.html">專案開發</a></li>
+                        <li><a href="about.html" class="active">關於我</a></li>
+                        <li><a href="contact.html">聯絡方式</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <section class="page-header">
+        <div class="container">
+            <h1>關於我</h1>
+            <p>結合理論與實務，致力於推動生成式AI在自動化領域的創新應用</p>
+        </div>
+    </section>
+
+    <main class="main-content">
+        <div class="container">
+            
+            <!-- 個人簡介 -->
+            <div class="intro-section">
+                <div class="intro-content">
+                    <div class="profile-image">
+                        <div class="profile-placeholder">
+                            <i class="fas fa-user"></i>
+                        </div>
+                    </div>
+                    <div class="intro-text">
+                        <h2>劉瑞雄教授</h2>
+                        <div class="title">Professor Jui-Hung Liu</div>
+                        <p>
+                            我是一位專注於生成式AI與自動化技術研究的學者，擁有豐富的理論基礎與實務經驗。
+                            我的研究重點在於將最新的人工智慧技術應用於工業自動化、風力發電運維，
+                            以及智慧監控系統的開發。
+                        </p>
+                        <p>
+                            近年來，我特別專注於大型語言模型在自動化領域的應用研究，
+                            開發了多項創新的AI程式碼自動生成系統，並成功整合了多平台的智慧管理解決方案。
+                            我相信透過AI技術的創新應用，能夠為傳統工業帶來革命性的改變。
+                        </p>
+                    </div>
+                </div>
+                
+                <div class="highlight-stats">
+                    <div class="stat-item">
+                        <div class="stat-number">15+</div>
+                        <div class="stat-label">年教學研究經驗</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">30+</div>
+                        <div class="stat-label">學術論文發表</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">50+</div>
+                        <div class="stat-label">指導學生人數</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 學術背景 -->
+            <div class="section">
+                <div class="section-title">
+                    <i class="fas fa-graduation-cap"></i>
+                    <h3>學術背景與經歷</h3>
+                </div>
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <div class="timeline-year">2015 - 至今</div>
+                        <div class="timeline-content">
+                            <h4>教授職位</h4>
+                            <p>專注於生成式AI在自動化領域的應用研究</p>
+                            <p>指導研究生進行風電運維與智慧監控相關研究</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-year">2010 - 2015</div>
+                        <div class="timeline-content">
+                            <h4>副教授職位</h4>
+                            <p>建立風電監控實驗室 - 瘋風機 Wind Turbine Chaser</p>
+                            <p>開始風力發電系統可靠性分析研究</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-year">2005 - 2010</div>
+                        <div class="timeline-content">
+                            <h4>助理教授職位</h4>
+                            <p>機械工程與自動化控制研究</p>
+                            <p>建立產學合作關係</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-year">2000 - 2005</div>
+                        <div class="timeline-content">
+                            <h4>博士研究</h4>
+                            <p>機械工程博士學位</p>
+                            <p>專精於控制系統與自動化技術</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 專業技能 -->
+            <div class="section">
+                <div class="section-title">
+                    <i class="fas fa-cogs"></i>
+                    <h3>專業技能與專長</h3>
+                </div>
+                <div class="skills-grid">
+                    <div class="skill-category">
+                        <h4>人工智慧技術</h4>
+                        <ul class="skill-list">
+                            <li>大型語言模型應用</li>
+                            <li>生成式AI系統開發</li>
+                            <li>機器學習與深度學習</li>
+                            <li>自然語言處理</li>
+                            <li>AI程式碼自動生成</li>
+                        </ul>
+                    </div>
+                    <div class="skill-category">
+                        <h4>自動化技術</h4>
+                        <ul class="skill-list">
+                            <li>PLC程式設計</li>
+                            <li>SCADA系統開發</li>
+                            <li>HMI介面設計</li>
+                            <li>工業通訊協議</li>
+                            <li>IoT系統整合</li>
+                        </ul>
+                    </div>
+                    <div class="skill-category">
+                        <h4>風電技術</h4>
+                        <ul class="skill-list">
+                            <li>風電系統監控</li>
+                            <li>預測性維護</li>
+                            <li>可靠性分析</li>
+                            <li>故障診斷技術</li>
+                            <li>AR維護系統</li>
+                        </ul>
+                    </div>
+                    <div class="skill-category">
+                        <h4>程式開發</h4>
+                        <ul class="skill-list">
+                            <li>Python / C++ / JavaScript</li>
+                            <li>Web應用開發</li>
+                            <li>資料庫設計</li>
+                            <li>API整合</li>
+                            <li>雲端平台部署</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 主要成就 -->
+            <div class="section">
+                <div class="section-title">
+                    <i class="fas fa-trophy"></i>
+                    <h3>主要成就與榮譽</h3>
+                </div>
+                <div class="achievements-grid">
+                    <div class="achievement-card">
+                        <i class="fas fa-medal"></i>
+                        <h4>SCIE期刊論文</h4>
+                        <p>多篇高品質國際期刊發表</p>
+                    </div>
+                    <div class="achievement-card">
+                        <i class="fas fa-award"></i>
+                        <h4>最佳論文獎</h4>
+                        <p>國際研討會優秀論文獎項</p>
+                    </div>
+                    <div class="achievement-card">
+                        <i class="fas fa-handshake"></i>
+                        <h4>產學合作</h4>
+                        <p>與工研院等機構合作</p>
+                    </div>
+                    <div class="achievement-card">
+                        <i class="fas fa-users"></i>
+                        <h4>學生指導</h4>
+                        <p>培育優秀研究人才</p>
+                    </div>
+                    <div class="achievement-card">
+                        <i class="fas fa-lightbulb"></i>
+                        <h4>技術創新</h4>
+                        <p>AI自動化系統開發</p>
+                    </div>
+                    <div class="achievement-card">
+                        <i class="fas fa="flask"></i>
+                        <h4>研究計畫</h4>
+                        <p>科技部專題研究主持</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 研究理念 -->
+            <div class="philosophy-section">
+                <h3>研究理念與願景</h3>
+                <p>
+                    我相信技術的真正價值在於能夠解決實際問題，改善人們的生活品質。
+                    在研究過程中，我始終堅持理論與實務並重的原則，
+                    不僅追求學術上的創新突破，更重視技術的實際應用與產業化發展。
+                </p>
+                <blockquote>
+                    "讓AI技術真正服務於人類，推動智慧自動化的普及應用"
+                </blockquote>
+                <p>
+                    面對快速發展的AI技術，我致力於探索生成式AI在工業自動化領域的無限可能。
+                    透過跨領域的合作與創新，我希望能夠建構更智慧、更高效、更可靠的自動化系統，
+                    為產業轉型升級貢獻一份力量。
+                </p>
+            </div>
+
+        </div>
+    </main>
+
+    <script>
+        // 滾動動畫效果
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // 觀察所有section
+        document.querySelectorAll('.section, .intro-section, .philosophy-section').forEach(section => {
+            section.style.opacity = '0';
+            section.style.transform = 'translateY(30px)';
+            section.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            observer.observe(section);
+        });
+
+        // 統計數字動畫
+        const statNumbers = document.querySelectorAll('.stat-number');
+        const statsObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const target = entry.target;
+                    const finalNumber = parseInt(target.textContent.replace('+', ''));
+                    let currentNumber = 0;
+                    const increment = finalNumber / 30;
+                    
+                    const timer = setInterval(() => {
+                        currentNumber += increment;
+                        if (currentNumber >= finalNumber) {
+                            target.textContent = finalNumber + (target.textContent.includes('+') ? '+' : '');
+                            clearInterval(timer);
+                        } else {
+                            target.textContent = Math.floor(currentNumber) + (target.textContent.includes('+') ? '+' : '');
+                        }
+                    }, 50);
+                }
+            });
+        }, { threshold: 0.5 });
+
+        statNumbers.forEach(stat => {
+            statsObserver.observe(stat);
+        });
+
+        // Timeline項目動畫
+        const timelineItems = document.querySelectorAll('.timeline-item');
+        timelineItems.forEach((item, index) => {
+            item.style.opacity = '0';
+            item.style.transform = 'translateX(-30px)';
+            item.style.transition = `opacity 0.6s ease ${index * 0.2}s, transform 0.6s ease ${index * 0.2}s`;
+            
+            observer.observe(item);
+        });
+    </script>
+</body>
+</html>
