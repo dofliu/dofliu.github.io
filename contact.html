@@ -6,803 +6,466 @@
     <title>聯絡方式 - DOF Lab</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            line-height: 1.6;
-            color: #333;
-            background: #f8f9fa;
+            line-height: 1.6; color: #333; background: #f8f9fa;
         }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
 
         header {
-            background: white;
-            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            z-index: 1000;
+            background: white; box-shadow: 0 2px 20px rgba(0,0,0,0.1);
+            position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
         }
-
-        nav {
-            padding: 1rem 0;
-        }
-
-        .nav-container {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .logo {
-            font-size: 1.8rem;
-            font-weight: bold;
-            color: #667eea;
-            text-decoration: none;
-        }
-
-        .nav-links {
-            display: flex;
-            list-style: none;
-            gap: 2rem;
-        }
-
-        .nav-links a {
-            text-decoration: none;
-            color: #333;
-            font-weight: 500;
-            transition: color 0.3s ease;
-        }
-
-        .nav-links a:hover, .nav-links a.active {
-            color: #667eea;
-        }
+        nav { padding: 1rem 0; }
+        .nav-container { display: flex; justify-content: space-between; align-items: center; }
+        .logo { font-size: 1.8rem; font-weight: bold; color: #667eea; text-decoration: none; }
+        .nav-links { display: flex; list-style: none; gap: 2rem; }
+        .nav-links a { text-decoration: none; color: #333; font-weight: 500; transition: color 0.3s ease; }
+        .nav-links a:hover, .nav-links a.active { color: #667eea; }
 
         .page-header {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 8rem 0 4rem;
-            margin-top: 80px;
-            text-align: center;
+            color: white; padding: 8rem 0 4rem; margin-top: 80px; text-align: center;
         }
+        .page-header h1 { font-size: 3rem; margin-bottom: 1rem; }
+        .page-header p { font-size: 1.2rem; opacity: 0.9; max-width: 600px; margin: 0 auto; }
 
-        .page-header h1 {
-            font-size: 3rem;
-            margin-bottom: 1rem;
+        .main-content { padding: 4rem 0; }
+        .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; margin-bottom: 3rem; }
+
+        .contact-info, .contact-form {
+            background: white; padding: 3rem; border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1); position: relative; overflow: hidden;
         }
-
-        .page-header p {
-            font-size: 1.2rem;
-            opacity: 0.9;
-            max-width: 600px;
-            margin: 0 auto;
-        }
-
-        .main-content {
-            padding: 4rem 0;
-        }
-
-        .contact-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 3rem;
-            margin-bottom: 3rem;
-        }
-
-        .contact-info {
-            background: white;
-            padding: 3rem;
-            border-radius: 20px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .contact-info::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 5px;
+        .contact-info::before, .contact-form::before {
+            content: ''; position: absolute; top: 0; left: 0; right: 0; height: 5px;
             background: linear-gradient(135deg, #667eea, #764ba2);
         }
-
-        .contact-info h2 {
-            font-size: 2rem;
-            color: #333;
-            margin-bottom: 2rem;
-            display: flex;
-            align-items: center;
-            gap: 1rem;
+        .contact-info h2, .contact-form h2 {
+            font-size: 2rem; color: #333; margin-bottom: 2rem; display: flex; align-items: center; gap: 1rem;
         }
-
-        .contact-info h2 i {
-            color: #667eea;
-        }
+        .contact-info h2 i, .contact-form h2 i { color: #667eea; }
 
         .contact-item {
-            display: flex;
-            align-items: center;
-            margin-bottom: 2rem;
-            padding: 1.5rem;
-            background: #f8f9fa;
-            border-radius: 15px;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            display: flex; align-items: center; margin-bottom: 2rem; padding: 1.5rem;
+            background: #f8f9fa; border-radius: 15px; transition: transform 0.3s ease, box-shadow 0.3s ease;
             border-left: 4px solid #667eea;
         }
+        .contact-item:hover { transform: translateY(-3px); box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
+        .contact-item i { font-size: 2rem; color: #667eea; margin-right: 1.5rem; width: 3rem; text-align: center; }
+        .contact-details h3 { color: #333; margin-bottom: 0.5rem; font-size: 1.2rem; }
+        .contact-details p { color: #666; font-size: 1rem; }
+        .contact-details a { color: #667eea; text-decoration: none; transition: color 0.3s ease; }
+        .contact-details a:hover { color: #764ba2; text-decoration: underline; }
 
-        .contact-item:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        .form-group { margin-bottom: 1.25rem; }
+        .form-group label { display: block; margin-bottom: 0.5rem; color: #333; font-weight: 600; }
+        .form-group input, .form-group select, .form-group textarea {
+            width: 100%; padding: 1rem; border: 2px solid #e9ecef; border-radius: 10px; font-size: 1rem;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease; background: #f8f9fa;
         }
-
-        .contact-item i {
-            font-size: 2rem;
-            color: #667eea;
-            margin-right: 1.5rem;
-            width: 3rem;
-            text-align: center;
+        .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+            outline: none; border-color: #667eea; box-shadow: 0 0 0 3px rgba(102,126,234,0.1); background: white;
         }
-
-        .contact-details h3 {
-            color: #333;
-            margin-bottom: 0.5rem;
-            font-size: 1.2rem;
-        }
-
-        .contact-details p {
-            color: #666;
-            font-size: 1rem;
-        }
-
-        .contact-details a {
-            color: #667eea;
-            text-decoration: none;
-            transition: color 0.3s ease;
-        }
-
-        .contact-details a:hover {
-            color: #764ba2;
-            text-decoration: underline;
-        }
-
-        .contact-form {
-            background: white;
-            padding: 3rem;
-            border-radius: 20px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .contact-form::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 5px;
-            background: linear-gradient(135deg, #667eea, #764ba2);
-        }
-
-        .contact-form h2 {
-            font-size: 2rem;
-            color: #333;
-            margin-bottom: 2rem;
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-        }
-
-        .contact-form h2 i {
-            color: #667eea;
-        }
-
-        .form-group {
-            margin-bottom: 2rem;
-        }
-
-        .form-group label {
-            display: block;
-            margin-bottom: 0.5rem;
-            color: #333;
-            font-weight: 600;
-        }
-
-        .form-group input,
-        .form-group select,
-        .form-group textarea {
-            width: 100%;
-            padding: 1rem;
-            border: 2px solid #e9ecef;
-            border-radius: 10px;
-            font-size: 1rem;
-            transition: border-color 0.3s ease, box-shadow 0.3s ease;
-            background: #f8f9fa;
-        }
-
-        .form-group input:focus,
-        .form-group select:focus,
-        .form-group textarea:focus {
-            outline: none;
-            border-color: #667eea;
-            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
-            background: white;
-        }
-
-        .form-group textarea {
-            min-height: 150px;
-            resize: vertical;
-        }
-
-        .form-row {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 1rem;
-        }
+        .form-group textarea { min-height: 150px; resize: vertical; }
+        .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
 
         .submit-btn {
-            background: linear-gradient(135deg, #667eea, #764ba2);
-            color: white;
-            padding: 1rem 2rem;
-            border: none;
-            border-radius: 50px;
-            font-size: 1.1rem;
-            font-weight: 600;
-            cursor: pointer;
+            background: linear-gradient(135deg, #667eea, #764ba2); color: white; padding: 1rem 2rem; border: none;
+            border-radius: 50px; font-size: 1.1rem; font-weight: 600; cursor: pointer;
             transition: transform 0.3s ease, box-shadow 0.3s ease;
-            width: 100%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 0.5rem;
+            width: 100%; display: flex; align-items: center; justify-content: center; gap: 0.5rem;
         }
+        .submit-btn:hover { transform: translateY(-2px); box-shadow: 0 5px 15px rgba(102,126,234,0.3); }
+        .submit-btn[disabled] { opacity: .7; cursor: not-allowed; }
 
-        .submit-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
+        .status {
+            margin-top: .75rem; font-size: .95rem; min-height: 1.4rem;
         }
+        .status.ok { color: #2f9e44; }
+        .status.err { color: #d6336c; }
 
         .office-info {
-            background: white;
-            padding: 3rem;
-            border-radius: 15px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
-            margin-bottom: 3rem;
+            background: white; padding: 3rem; border-radius: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.08); margin-bottom: 3rem;
         }
-
-        .office-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-        }
-
+        .office-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; }
         .office-card {
-            background: linear-gradient(135deg, rgba(102, 126, 234, 0.1), rgba(118, 75, 162, 0.1));
-            padding: 2rem;
-            border-radius: 15px;
-            border: 2px solid #667eea;
-            text-align: center;
-            transition: transform 0.3s ease;
+            background: linear-gradient(135deg, rgba(102,126,234,0.1), rgba(118,75,162,0.1));
+            padding: 2rem; border-radius: 15px; border: 2px solid #667eea; text-align: center; transition: transform 0.3s ease;
         }
+        .office-card:hover { transform: translateY(-5px); }
+        .office-card i { font-size: 3rem; color: #667eea; margin-bottom: 1rem; }
+        .office-card h3 { color: #333; margin-bottom: 1rem; font-size: 1.3rem; }
+        .office-card p { color: #666; margin-bottom: 0.5rem; }
 
-        .office-card:hover {
-            transform: translateY(-5px);
-        }
-
-        .office-card i {
-            font-size: 3rem;
-            color: #667eea;
-            margin-bottom: 1rem;
-        }
-
-        .office-card h3 {
-            color: #333;
-            margin-bottom: 1rem;
-            font-size: 1.3rem;
-        }
-
-        .office-card p {
-            color: #666;
-            margin-bottom: 0.5rem;
-        }
-
-        .social-links {
-            display: flex;
-            gap: 1rem;
-            justify-content: center;
-            margin-top: 2rem;
-        }
-
+        .social-links { display: flex; gap: 1rem; justify-content: center; margin-top: 2rem; }
         .social-link {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 3rem;
-            height: 3rem;
-            background: linear-gradient(135deg, #667eea, #764ba2);
-            color: white;
-            border-radius: 50%;
-            text-decoration: none;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            display: flex; align-items: center; justify-content: center; width: 3rem; height: 3rem;
+            background: linear-gradient(135deg, #667eea, #764ba2); color: white; border-radius: 50%;
+            text-decoration: none; transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
-
-        .social-link:hover {
-            transform: scale(1.1);
-            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
-        }
+        .social-link:hover { transform: scale(1.1); box-shadow: 0 5px 15px rgba(102,126,234,0.3); }
 
         .recruitment-section {
-            background: linear-gradient(135deg, #667eea, #764ba2);
-            color: white;
-            padding: 4rem 3rem;
-            border-radius: 20px;
-            text-align: center;
-            margin-bottom: 3rem;
-            position: relative;
-            overflow: hidden;
+            background: linear-gradient(135deg, #667eea, #764ba2); color: white; padding: 4rem 3rem; border-radius: 20px;
+            text-align: center; margin-bottom: 3rem; position: relative; overflow: hidden;
         }
-
         .recruitment-section::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            right: -50%;
-            width: 100%;
-            height: 100%;
-            background: rgba(255, 255, 255, 0.1);
-            transform: rotate(45deg);
+            content: ''; position: absolute; top: -50%; right: -50%; width: 100%; height: 100%;
+            background: rgba(255,255,255,0.1); transform: rotate(45deg);
         }
-
-        .recruitment-section h2 {
-            font-size: 2.5rem;
-            margin-bottom: 1rem;
-            position: relative;
-            z-index: 2;
-        }
-
+        .recruitment-section h2 { font-size: 2.5rem; margin-bottom: 1rem; position: relative; z-index: 2; }
         .recruitment-section p {
-            font-size: 1.2rem;
-            margin-bottom: 2rem;
-            opacity: 0.9;
-            position: relative;
-            z-index: 2;
-            max-width: 800px;
-            margin-left: auto;
-            margin-right: auto;
+            font-size: 1.2rem; margin-bottom: 2rem; opacity: 0.9; position: relative; z-index: 2; max-width: 800px; margin-left: auto; margin-right: auto;
         }
-
-        .recruitment-features {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 2rem;
-            margin-top: 3rem;
-            position: relative;
-            z-index: 2;
-        }
-
+        .recruitment-features { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem; margin-top: 3rem; position: relative; z-index: 2; }
         .feature-item {
-            background: rgba(255, 255, 255, 0.2);
-            padding: 2rem;
-            border-radius: 15px;
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            transition: transform 0.3s ease;
+            background: rgba(255,255,255,0.2); padding: 2rem; border-radius: 15px; backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.3); transition: transform 0.3s ease;
         }
-
-        .feature-item:hover {
-            transform: translateY(-5px);
-        }
-
-        .feature-item i {
-            font-size: 2.5rem;
-            margin-bottom: 1rem;
-        }
-
-        .feature-item h3 {
-            margin-bottom: 0.5rem;
-            font-size: 1.2rem;
-        }
+        .feature-item:hover { transform: translateY(-5px); }
+        .feature-item i { font-size: 2.5rem; margin-bottom: 1rem; }
+        .feature-item h3 { margin-bottom: 0.5rem; font-size: 1.2rem; }
 
         .map-section {
-            background: white;
-            padding: 3rem;
-            border-radius: 15px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
-            text-align: center;
+            background: white; padding: 3rem; border-radius: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.08); text-align: center;
         }
-
         .map-section h3 {
-            color: #333;
-            margin-bottom: 2rem;
-            font-size: 2rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 1rem;
+            color: #333; margin-bottom: 2rem; font-size: 2rem; display: flex; align-items: center; justify-content: center; gap: 1rem;
         }
-
-        .map-section i {
-            color: #667eea;
-        }
-
+        .map-section i { color: #667eea; }
         .map-placeholder {
-            background: #f8f9fa;
-            border: 2px dashed #dee2e6;
-            border-radius: 15px;
-            padding: 4rem 2rem;
-            color: #6c757d;
+            background: #f8f9fa; border: 2px dashed #dee2e6; border-radius: 15px; padding: 4rem 2rem; color: #6c757d;
         }
-
-        .map-placeholder i {
-            font-size: 4rem;
-            margin-bottom: 1rem;
-            color: #dee2e6;
-        }
+        .map-placeholder i { font-size: 4rem; margin-bottom: 1rem; color: #dee2e6; }
 
         @media (max-width: 768px) {
-            .nav-links {
-                display: none;
-            }
-
-            .page-header h1 {
-                font-size: 2rem;
-            }
-
-            .contact-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .form-row {
-                grid-template-columns: 1fr;
-            }
-
-            .office-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .recruitment-features {
-                grid-template-columns: 1fr;
-            }
-
-            .contact-info, .contact-form, .office-info {
-                padding: 2rem;
-            }
-
-            .recruitment-section {
-                padding: 3rem 2rem;
-            }
+            .nav-links { display: none; }
+            .page-header h1 { font-size: 2rem; }
+            .contact-grid { grid-template-columns: 1fr; }
+            .form-row { grid-template-columns: 1fr; }
+            .office-grid { grid-template-columns: 1fr; }
+            .recruitment-features { grid-template-columns: 1fr; }
+            .contact-info, .contact-form, .office-info { padding: 2rem; }
+            .recruitment-section { padding: 3rem 2rem; }
         }
     </style>
 </head>
 <body>
-    <header>
-        <nav>
-            <div class="container">
-                <div class="nav-container">
-                    <a href="index.html" class="logo">DOF Lab</a>
-                    <ul class="nav-links">
-                        <li><a href="index.html">首頁</a></li>
-                        <li><a href="research.html">研究領域</a></li>
-                        <li><a href="publications.html">研究成果</a></li>
-                        <li><a href="projects.html">專案開發</a></li>
-                        <li><a href="about.html">關於我</a></li>
-                        <li><a href="contact.html" class="active">聯絡方式</a></li>
-                    </ul>
-                </div>
-            </div>
-        </nav>
-    </header>
-
-    <section class="page-header">
+<header>
+    <nav>
         <div class="container">
-            <h1>聯絡方式</h1>
-            <p>歡迎與我們聯繫，無論是學術合作、技術諮詢或研究生招募</p>
+            <div class="nav-container">
+                <a href="index.html" class="logo">DOF Lab</a>
+                <ul class="nav-links">
+                    <li><a href="index.html">首頁</a></li>
+                    <li><a href="research.html">研究領域</a></li>
+                    <li><a href="publications.html">研究成果</a></li>
+                    <li><a href="projects.html">專案開發</a></li>
+                    <li><a href="about.html">關於我</a></li>
+                    <li><a href="contact.html" class="active">聯絡方式</a></li>
+                </ul>
+            </div>
         </div>
-    </section>
+    </nav>
+</header>
 
-    <main class="main-content">
-        <div class="container">
-            
-            <!-- 聯絡資訊與聯絡表單 -->
-            <div class="contact-grid">
-                <div class="contact-info">
-                    <h2>
-                        <i class="fas fa-address-card"></i>
-                        聯絡資訊
-                    </h2>
-                    
-                    <div class="contact-item">
-                        <i class="fas fa-envelope"></i>
-                        <div class="contact-details">
-                            <h3>電子郵件</h3>
-                            <p><a href="mailto:dofliu@gm.ncut.edu.tw">dofliu@gm.ncut.edu.tw</a></p>
-                            <p>一般諮詢與合作洽談</p>
-                        </div>
-                    </div>
+<section class="page-header">
+    <div class="container">
+        <h1>聯絡方式</h1>
+        <p>歡迎與我們聯繫，無論是學術合作、技術諮詢或研究生招募</p>
+    </div>
+</section>
 
-                    <div class="contact-item">
-                        <i class="fas fa-building"></i>
-                        <div class="contact-details">
-                            <h3>辦公室</h3>
-                            <p>國立勤益科技大學 誠樸館 G309</p>
-                        </div>
-                    </div>
-
-                    <div class="contact-item">
-                        <i class="fas fa-flask"></i>
-                        <div class="contact-details">
-                            <h3>研究室</h3>
-                            <p>風電運維自動化技術研究室</p>
-                            <p>歡迎預約參觀</p>
-                        </div>
-                    </div>
-
-                    <div class="contact-item">
-                        <i class="fas fa-phone"></i>
-                        <div class="contact-details">
-                            <h3>聯絡方式</h3>
-                            <p>請透過電子郵件預約</p>
-                            <p>或直接到辦公室洽談</p>
-                        </div>
-                    </div>
-
-                    <div class="social-links">
-                        <a href="https://github.com/dofliu" target="_blank" class="social-link" title="GitHub">
-                            <i class="fab fa-github"></i>
-                        </a>
-                        <a href="https://sites.google.com/view/jui-hung-liu" target="_blank" class="social-link" title="Google Sites">
-                            <i class="fas fa-globe"></i>
-                        </a>
-                        <a href="https://www.youtube.com/@DofLiu" target="_blank" class="social-link" title="YouTube">
-                            <i class="fab fa-youtube"></i>
-                        </a>
-                        <a href="mailto:contact@doflab.cc" class="social-link" title="Email">
-                            <i class="fas fa-envelope"></i>
-                        </a>
+<main class="main-content">
+    <div class="container">
+        <div class="contact-grid">
+            <!-- 聯絡資訊 -->
+            <div class="contact-info">
+                <h2><i class="fas fa-address-card"></i> 聯絡資訊</h2>
+                <div class="contact-item">
+                    <i class="fas fa-envelope"></i>
+                    <div class="contact-details">
+                        <h3>電子郵件</h3>
+                        <p><a href="mailto:dofliu@gm.ncut.edu.tw">dofliu@gm.ncut.edu.tw</a></p>
+                        <p>一般諮詢與合作洽談</p>
                     </div>
                 </div>
-
-                <div class="contact-form">
-                    <h2>
-                        <i class="fas fa-paper-plane"></i>
-                        聯絡我們
-                    </h2>
-                    
-                    <div id="contactForm">
-                        <div class="form-row">
-                            <div class="form-group">
-                                <label for="name">姓名 *</label>
-                                <input type="text" id="name" name="name" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="email">電子郵件 *</label>
-                                <input type="email" id="email" name="email" required>
-                            </div>
-                        </div>
-
-                        <div class="form-row">
-                            <div class="form-group">
-                                <label for="organization">機構/公司</label>
-                                <input type="text" id="organization" name="organization">
-                            </div>
-                            <div class="form-group">
-                                <label for="subject">諮詢類型 *</label>
-                                <select id="subject" name="subject" required>
-                                    <option value="">請選擇</option>
-                                    <option value="research">學術研究合作</option>
-                                    <option value="industry">產學合作</option>
-                                    <option value="student">研究生招募</option>
-                                    <option value="technical">技術諮詢</option>
-                                    <option value="speaking">演講邀請</option>
-                                    <option value="other">其他</option>
-                                </select>
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="message">詳細說明 *</label>
-                            <textarea id="message" name="message" placeholder="請詳細描述您的需求、合作想法或問題..." required></textarea>
-                        </div>
-
-                        <button type="button" class="submit-btn" onclick="sendEmail()">
-                            <i class="fas fa-paper-plane"></i>
-                            發送訊息
-                        </button>
+                <div class="contact-item">
+                    <i class="fas fa-building"></i>
+                    <div class="contact-details">
+                        <h3>辦公室</h3>
+                        <p>國立勤益科技大學 誠樸館 G309</p>
                     </div>
                 </div>
-            </div>
-
-            <!-- 辦公室資訊 -->
-            <div class="office-info">
-                <h2 style="text-align: center; margin-bottom: 3rem; color: #333;">
-                    <i class="fas fa-map-marker-alt" style="color: #667eea; margin-right: 1rem;"></i>
-                    位置資訊
-                </h2>
-                <div class="office-grid">
-                    <div class="office-card">
-                        <i class="fas fa-building"></i>
-                        <h3>辦公室位置</h3>
-                        <p><strong>房間：</strong>G309</p>
-                        <p><strong>樓層：</strong>誠樸館 3樓</p>
-                    </div>
-                    <div class="office-card">
-                        <i class="fas fa-flask"></i>
+                <div class="contact-item">
+                    <i class="fas fa-flask"></i>
+                    <div class="contact-details">
                         <h3>研究室</h3>
-                        <p><strong>名稱：</strong>風電運維自動化技術研究室</p>
-                        <p><strong>英文：</strong>Wind turbine O&M Automation Technology Lab. (WTOA)</p>
+                        <p>風電運維自動化技術研究室</p>
+                        <p>歡迎預約參觀</p>
                     </div>
-                    <div class="office-card">
-                        <i class="fas fa-car"></i>
-                        <h3>交通資訊</h3>
-                        <p><strong>大眾運輸：</strong>校車、公車</p>
-                        <p><strong>停車：</strong>校內停車場</p>
-                        <p><strong>地址：</strong>請參考學校官網</p>
-                        <p><strong>建議：</strong>建議提前聯絡確認</p>
+                </div>
+                <div class="contact-item">
+                    <i class="fas fa-phone"></i>
+                    <div class="contact-details">
+                        <h3>聯絡方式</h3>
+                        <p>請透過電子郵件預約</p>
+                        <p>或直接到辦公室洽談</p>
                     </div>
+                </div>
+                <div class="social-links">
+                    <a href="https://github.com/dofliu" target="_blank" class="social-link" title="GitHub"><i class="fab fa-github"></i></a>
+                    <a href="https://sites.google.com/view/jui-hung-liu" target="_blank" class="social-link" title="Google Sites"><i class="fas fa-globe"></i></a>
+                    <a href="https://www.youtube.com/@DofLiu" target="_blank" class="social-link" title="YouTube"><i class="fab fa-youtube"></i></a>
+                    <a href="mailto:contact@doflab.cc" class="social-link" title="Email"><i class="fas fa-envelope"></i></a>
                 </div>
             </div>
 
-            <!-- 研究生招募 -->
-            <div class="recruitment-section">
-                <h2>
-                    <i class="fas fa-graduation-cap"></i>
-                    研究生招募
-                </h2>
-                <p>
-                    我們實驗室長期招募對生成式AI、自動化技術、風電系統有興趣的研究生。
-                    提供完整的研究訓練、產學合作機會，以及優良的研究環境。
-                    歡迎有志於投入AI與自動化領域研究的同學加入我們的團隊！
-                </p>
-                
-                <div class="recruitment-features">
-                    <div class="feature-item">
-                        <i class="fas fa-brain"></i>
-                        <h3>前沿技術</h3>
-                        <p>接觸最新的生成式AI與自動化技術</p>
-                    </div>
-                    <div class="feature-item">
-                        <i class="fas fa-handshake"></i>
-                        <h3>產學合作</h3>
-                        <p>參與實際的產業合作專案</p>
-                    </div>
-                    <div class="feature-item">
-                        <i class="fas fa-award"></i>
-                        <h3>學術發表</h3>
-                        <p>國際期刊與研討會論文發表機會</p>
-                    </div>
-                    <div class="feature-item">
-                        <i class="fas fa-users"></i>
-                        <h3>團隊合作</h3>
-                        <p>與優秀的研究團隊共同成長</p>
-                    </div>
-                </div>
-            </div>
+            <!-- 聯絡表單（可直接寄送） -->
+            <div class="contact-form">
+                <h2><i class="fas fa-paper-plane"></i> 聯絡我們</h2>
 
-            <!-- 地圖區域 -->
-            <div class="map-section">
-                <h3>
-                    <i class="fas fa-map"></i>
-                    校園地圖
-                </h3>
-                <div class="map-placeholder">
-                    <i class="fas fa-map-marked-alt"></i>
-                    <h4>互動式校園地圖</h4>
-                    <p>請訪問學校官方網站查看詳細的校園地圖與交通指南</p>
-                    <p>或直接聯絡我們取得更詳細的位置資訊</p>
-                </div>
-            </div>
+                <!-- 將 div 改為 form，加入 honeypot 與狀態列 -->
+                <form id="contactForm" novalidate>
+                    <!-- honeypot（人看不見，機器人會填） -->
+                    <input type="text" id="website" name="website" autocomplete="off" style="display:none!important">
 
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="name">姓名 *</label>
+                            <input type="text" id="name" name="name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">電子郵件 *</label>
+                            <input type="email" id="email" name="email" required inputmode="email" placeholder="your@email.com">
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="organization">機構/公司</label>
+                            <input type="text" id="organization" name="organization">
+                        </div>
+                        <div class="form-group">
+                            <label for="subject">諮詢類型 *</label>
+                            <select id="subject" name="subject" required>
+                                <option value="">請選擇</option>
+                                <option value="research">學術研究合作</option>
+                                <option value="industry">產學合作</option>
+                                <option value="student">研究生招募</option>
+                                <option value="technical">技術檢視/諮詢</option>
+                                <option value="speaking">演講邀請</option>
+                                <option value="other">其他</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="message">詳細說明 *</label>
+                        <textarea id="message" name="message" placeholder="請詳細描述您的需求、合作想法或問題..." required></textarea>
+                    </div>
+
+                    <button type="submit" id="submitBtn" class="submit-btn">
+                        <i class="fas fa-paper-plane"></i> 發送訊息
+                    </button>
+                    <div id="formStatus" class="status" aria-live="polite"></div>
+                </form>
+            </div>
         </div>
-    </main>
 
-    <script>
-        // 聯絡表單處理
-        function sendEmail() {
-            const name = document.getElementById('name').value;
-            const email = document.getElementById('email').value;
-            const organization = document.getElementById('organization').value;
-            const subject = document.getElementById('subject').value;
-            const message = document.getElementById('message').value;
+        <!-- 辦公室資訊 -->
+        <div class="office-info">
+            <h2 style="text-align:center; margin-bottom:3rem; color:#333;">
+                <i class="fas fa-map-marker-alt" style="color:#667eea; margin-right:1rem;"></i> 位置資訊
+            </h2>
+            <div class="office-grid">
+                <div class="office-card">
+                    <i class="fas fa-building"></i>
+                    <h3>辦公室位置</h3>
+                    <p><strong>房間：</strong>G309</p>
+                    <p><strong>樓層：</strong>誠樸館 3樓</p>
+                </div>
+                <div class="office-card">
+                    <i class="fas fa-flask"></i>
+                    <h3>研究室</h3>
+                    <p><strong>名稱：</strong>風電運維自動化技術研究室</p>
+                    <p><strong>英文：</strong>Wind turbine O&M Automation Technology Lab. (WTOA)</p>
+                </div>
+                <div class="office-card">
+                    <i class="fas fa-car"></i>
+                    <h3>交通資訊</h3>
+                    <p><strong>大眾運輸：</strong>校車、公車</p>
+                    <p><strong>停車：</strong>校內停車場</p>
+                    <p><strong>地址：</strong>請參考學校官網</p>
+                    <p><strong>建議：</strong>建議提前聯絡確認</p>
+                </div>
+            </div>
+        </div>
 
-            // 基本驗證
-            if (!name || !email || !subject || !message) {
-                alert('請填寫所有必填欄位');
-                return;
-            }
+        <!-- 研究生招募 -->
+        <div class="recruitment-section">
+            <h2><i class="fas fa-graduation-cap"></i> 研究生招募</h2>
+            <p>
+                我們實驗室長期招募對生成式AI、自動化技術、風電系統有興趣的研究生。提供完整的研究訓練、產學合作機會，以及優良的研究環境。
+            </p>
+            <div class="recruitment-features">
+                <div class="feature-item"><i class="fas fa-brain"></i><h3>前沿技術</h3><p>接觸最新的生成式AI與自動化技術</p></div>
+                <div class="feature-item"><i class="fas fa-handshake"></i><h3>產學合作</h3><p>參與實際的產業合作專案</p></div>
+                <div class="feature-item"><i class="fas fa-award"></i><h3>學術發表</h3><p>國際期刊與研討會論文發表機會</p></div>
+                <div class="feature-item"><i class="fas fa-users"></i><h3>團隊合作</h3><p>與優秀的研究團隊共同成長</p></div>
+            </div>
+        </div>
 
-            // 建立郵件內容
-            const emailSubject = `DOF Lab聯絡 - ${subject}`;
-            const emailBody = `
-姓名: ${name}
-電子郵件: ${email}
-機構/公司: ${organization}
-諮詢類型: ${subject}
+        <!-- 地圖區域 -->
+        <div class="map-section">
+            <h3><i class="fas fa-map"></i> 校園地圖</h3>
+            <div class="map-placeholder">
+                <i class="fas fa-map-marked-alt"></i>
+                <h4>互動式校園地圖</h4>
+                <p>請訪問學校官方網站查看詳細的校園地圖與交通指南</p>
+                <p>或直接聯絡我們取得更詳細的位置資訊</p>
+            </div>
+        </div>
+    </div>
+</main>
 
-詳細說明:
-${message}
+<script>
+/** =======  將此常數改為您的後端寄信 API  =======
+ *  例1（Cloud Run + SendGrid）: https://api.doflab.cc/api/contact
+ *  例2（Google Apps Script）: https://script.google.com/macros/s/XXXX/exec
+ */
+const API_ENDPOINT = 'https://REPLACE_WITH_YOUR_ENDPOINT';
 
---
-此訊息來自 DOF Lab 網站聯絡表單
-            `;
+/** 將 subject value 映射為易讀中文 */
+const SUBJECT_MAP = {
+  research: '學術研究合作',
+  industry: '產學合作',
+  student: '研究生招募',
+  technical: '技術檢視/諮詢',
+  speaking: '演講邀請',
+  other: '其他'
+};
 
-            // 建立mailto連結
-            const mailtoLink = `mailto:contact@doflab.cc?subject=${encodeURIComponent(emailSubject)}&body=${encodeURIComponent(emailBody)}`;
-            
-            // 開啟郵件客戶端
-            window.location.href = mailtoLink;
-            
-            // 顯示成功訊息
-            alert('郵件客戶端已開啟，請確認發送郵件');
-        }
+const $ = (id) => document.getElementById(id);
 
-        // 滾動動畫效果
-        const observerOptions = {
-            threshold: 0.1,
-            rootMargin: '0px 0px -50px 0px'
-        };
+function isEmail(v) {
+  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v);
+}
 
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.style.opacity = '1';
-                    entry.target.style.transform = 'translateY(0)';
-                }
-            });
-        }, observerOptions);
+/** 送出表單 */
+document.getElementById('contactForm').addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const btn = $('submitBtn');
+  const statusEl = $('formStatus');
 
-        // 觀察所有section和card
-        document.querySelectorAll('.contact-info, .contact-form, .office-info, .recruitment-section, .map-section').forEach(section => {
-            section.style.opacity = '0';
-            section.style.transform = 'translateY(30px)';
-            section.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
-            observer.observe(section);
-        });
+  // honeypot：若有填寫，視為機器人
+  if (($('website').value || '').trim() !== '') {
+    statusEl.className = 'status err';
+    statusEl.textContent = '送出失敗（疑似機器人提交）。';
+    return;
+  }
 
-        // 聯絡項目hover效果
-        document.querySelectorAll('.contact-item').forEach(item => {
-            item.addEventListener('mouseenter', function() {
-                this.style.transform = 'translateY(-5px) scale(1.02)';
-            });
-            
-            item.addEventListener('mouseleave', function() {
-                this.style.transform = 'translateY(-3px) scale(1)';
-            });
-        });
+  const name = $('name').value.trim();
+  const email = $('email').value.trim();
+  const organization = $('organization').value.trim();
+  const subjectVal = $('subject').value;
+  const subjectText = SUBJECT_MAP[subjectVal] || subjectVal;
+  const message = $('message').value.trim();
 
-        // 表單欄位焦點效果
-        document.querySelectorAll('input, select, textarea').forEach(field => {
-            field.addEventListener('focus', function() {
-                this.parentElement.style.transform = 'scale(1.02)';
-            });
-            
-            field.addEventListener('blur', function() {
-                this.parentElement.style.transform = 'scale(1)';
-            });
-        });
+  if (!name || !email || !subjectVal || !message) {
+    statusEl.className = 'status err';
+    statusEl.textContent = '請填寫所有必填欄位。';
+    return;
+  }
+  if (!isEmail(email)) {
+    statusEl.className = 'status err';
+    statusEl.textContent = '電子郵件格式不正確。';
+    return;
+  }
 
-        // 社交連結動畫
-        document.querySelectorAll('.social-link').forEach(link => {
-            link.addEventListener('mouseenter', function() {
-                this.style.transform = 'scale(1.2) rotate(10deg)';
-            });
-            
-            link.addEventListener('mouseleave', function() {
-                this.style.transform = 'scale(1.1) rotate(0deg)';
-            });
-        });
-    </script>
+  // 組合 payload（與後端範例契約一致）
+  const payload = { name, email, organization, subject: subjectText, message };
+
+  try {
+    // UI：鎖定按鈕
+    btn.disabled = true;
+    btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> 寄送中…';
+    statusEl.className = 'status';
+    statusEl.textContent = '';
+
+    // 嘗試 CORS（建議您的後端開啟 CORS: Access-Control-Allow-Origin: https://您的網域）
+    let res;
+    try {
+      res = await fetch(API_ENDPOINT, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        // 如後端限定同源，可於後端設定 CORS 白名單；此處不攜帶憑證
+        body: JSON.stringify(payload)
+      });
+    } catch (err) {
+      // 若瀏覽器擋下（DNS/CORS），退而用 no-cors 讓請求仍能送達（但無法讀回應）
+      res = await fetch(API_ENDPOINT, {
+        method: 'POST',
+        mode: 'no-cors',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      });
+    }
+
+    // 若是 opaque（no-cors），或 HTTP 200/204/OK 都視為成功送出
+    if (!res || res.type === 'opaque' || (res.ok && (res.status === 200 || res.status === 204))) {
+      statusEl.className = 'status ok';
+      statusEl.textContent = '已送出，感謝您的來信！';
+      e.target.reset();
+    } else {
+      const txt = await res.text().catch(()=>'');
+      throw new Error(txt || ('HTTP ' + res.status));
+    }
+  } catch (err) {
+    console.error(err);
+    statusEl.className = 'status err';
+    statusEl.textContent = '寄送失敗，請稍後再試或直接來信 contact@doflab.cc';
+  } finally {
+    btn.disabled = false;
+    btn.innerHTML = '<i class="fas fa-paper-plane"></i> 發送訊息';
+  }
+});
+
+/* ===== 視覺與互動（保留您原有效果） ===== */
+const observerOptions = { threshold: 0.1, rootMargin: '0px 0px -50px 0px' };
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.style.opacity = '1';
+      entry.target.style.transform = 'translateY(0)';
+    }
+  });
+}, observerOptions);
+
+document.querySelectorAll('.contact-info, .contact-form, .office-info, .recruitment-section, .map-section').forEach(section => {
+  section.style.opacity = '0';
+  section.style.transform = 'translateY(30px)';
+  section.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+  observer.observe(section);
+});
+
+document.querySelectorAll('.contact-item').forEach(item => {
+  item.addEventListener('mouseenter', function(){ this.style.transform = 'translateY(-5px) scale(1.02)'; });
+  item.addEventListener('mouseleave', function(){ this.style.transform = 'translateY(-3px) scale(1)'; });
+});
+
+document.querySelectorAll('input, select, textarea').forEach(field => {
+  field.addEventListener('focus', function(){ this.parentElement.style.transform = 'scale(1.02)'; });
+  field.addEventListener('blur', function(){ this.parentElement.style.transform = 'scale(1)'; });
+});
+
+document.querySelectorAll('.social-link').forEach(link => {
+  link.addEventListener('mouseenter', function(){ this.style.transform = 'scale(1.2) rotate(10deg)'; });
+  link.addEventListener('mouseleave', function(){ this.style.transform = 'scale(1.1) rotate(0deg)'; });
+});
+</script>
 </body>
 </html>
