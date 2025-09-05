@@ -1,6 +1,6 @@
-# DOF Lab - 劉瑞雄教授個人網站
+# DOF Lab - 劉瑞弘 教授個人網站
 
-這是劉瑞雄教授的個人學術網站，專注於展示生成式AI在自動化領域的研究成果與專案開發。
+這是劉瑞弘教授的個人學術網站，專注於展示生成式AI在自動化領域的研究成果與專案開發。
 
 ## 🌟 網站特色
 
@@ -134,7 +134,7 @@ GitHub Pages會自動為自訂域名提供免費的SSL憑證，確保網站安�
 
 ```html
 <div class="profile-image">
-    <img src="images/profile.jpg" alt="劉瑞雄教授" 
+    <img src="images/profile.jpg" alt="劉瑞弘教授" 
          style="width: 250px; height: 250px; border-radius: 50%; object-fit: cover;">
 </div>
 ```
@@ -310,7 +310,7 @@ GitHub Pages會自動為自訂域名提供免費的SSL憑證，確保網站安�
 
 如有任何問題或需要進一步的技術支援，歡迎聯絡：
 
-**劉瑞雄教授 DOF Lab**
+**劉瑞弘教授 DOF Lab**
 - 📧 Email: contact@doflab.cc
 - 🏢 辦公室: G309
 - 🔬 研究室: 瘋風機 Wind Turbine Chaser
